@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    * {
+        @apply outline-none select-none;
+    }
+}
+
+@layer components {
+    .desktop-panel {
+        @apply w-full h-full bg-gray-300 bg-opacity-40 overflow-y-auto pb-24 mt-1.5;
+    }
+}
