@@ -5,7 +5,7 @@
     "compilerOptions": {
         "composite": true,
         "noEmit": true,
-        "baseUrl": "./taco-clicker",
+        "baseUrl": ".",
         "paths": {
             "@/*": ["./src/*"]
         }
