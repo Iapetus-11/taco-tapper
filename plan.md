@@ -1,0 +1,50 @@
+-   Cookie clicker clone
+-   Big taco that is clickable (clicking taco increases score -- which is tacos)
+    -   Should have funny click effects
+-   In-game currency is tacos (which is also the score)
+-   Cosmetic shop (only in-game currency)
+    -   Options to change the clickable taco
+-   Upgrades
+    -   Cheese
+    -   Onions
+    -   Cilantro
+    -   Lettuce
+    -   Lime
+    -   Salsa
+    -   Guacamole
+    -   Extra spice salsa
+    -   Super spicy death salsa
+-   Protein options
+    -   Chicken - items are 2% cheaper
+    -   Beef - 5% extra tacos per click
+    -   Pork - start off with some tacos already clicked
+-   IDLE features (clicks the tacos automatically)
+    -   Taco stand
+    -   Taco truck
+    -   Taco resturant
+    -   Taco factory
+    -   Taco materializer
+-   Levels (based on # of all time tacos)
+    -   Taco Eater
+    -   Taco Enjoyer
+    -   Taco Devourer
+    -   Taco Fiend
+    -   Competitive Taco Eater
+    -   Destroyer Of Tacos
+    -   Taco King
+    -   Emperor Of All Tacokind
+    -   Taco Overlord
+    -   Taco God
+-   Taco characters
+    -   Mustachioed (has an elaborate mustache)
+    -   Strong man (has muscley arms)
+    -   Gentleman (has a bowtie top hat)
+    -   Silver
+    -   Golden
+    -   Emerald
+    -   Diamond
+    -   Christmas (santa??)
+    -   Halloween
+    -   Irish (four leaf clover glasses)
+    -   Easter (bunny ears)
+-   Variety bonus
