@@ -38,6 +38,11 @@ export const SKINS = {
         price: 16384,
         description: 'Lots of presents hidden in his tortilla!',
     },
+    'Bass Pro Fish': {
+        icon: '/art/tacos/fish.png',
+        price: 16384,
+        description: 'Men love me, fish fear me',
+    },
 } as const;
 
 export type ToppingDefinition = {
@@ -49,18 +54,21 @@ export const TOPPINGS = {
     Lettuce: {
         price: 64,
         multiplier: 0.0625,
-        // Efficiency: 0.001953125
-        icon: '/art/toppings/cheese.png',
+        icon: '/art/toppings/lettuce.png',
     },
-    Onion: {
+    'Sour Cream': {
         price: 96,
         multiplier: 0.09375,
-        // Efficiency: 0.001953125
+        icon: '/art/toppings/sour_cream.png',
+    },
+    Onion: {
+        price: 128,
+        multiplier: 0.125,
         icon: '/art/toppings/onion.png',
     },
     Cheese: {
-        price: 128,
-        multiplier: 0.125,
+        price: 192,
+        multiplier: 0.1875,
         icon: '/art/toppings/cheese.png',
     },
     Cilantro: {
@@ -81,7 +89,7 @@ export const TOPPINGS = {
     Rice: {
         price: 2048,
         multiplier: 2,
-        icon: '/art/tacos/goldy.png',
+        icon: '/art/toppings/rice.png',
     },
     Salsa: {
         price: 4096,

@@ -18,16 +18,21 @@
 
     const tacoAnimationState = ref(false);
 
-    const perClickBonus = computed(() =>
-        Object.entries(state.value.ownedToppings)
+    const varietyBonus = computed(() =>
+        Math.pow(Object.values(state.value.ownedToppings).length / 5.0, 1.5),
+    );
+    const clickMultiplier = computed(() => {
+        const toppingMultiplier = Object.entries(state.value.ownedToppings)
             .map(([u, c]) => {
                 return TOPPINGS[u as keyof typeof TOPPINGS].multiplier * c;
             })
-            .reduce((sum, value) => sum + value, 0),
-    );
+            .reduce((sum, value) => sum + value, 0);
+
+        return toppingMultiplier + varietyBonus.value;
+    });
 
     function userClick() {
-        const earnedTacos = 1 + perClickBonus.value;
+        const earnedTacos = 1 + clickMultiplier.value;
         state.value.tacos += earnedTacos;
         state.value.totalTacos += earnedTacos;
 
@@ -43,13 +48,26 @@
     }
 </script>
 
+<style scoped>
+    .panel-section-group {
+        @apply w-full lg:h-full bg-gray-300 bg-opacity-40 lg:overflow-y-auto lg:pb-20 lg:mt-1.5;
+        @apply max-lg:divide-y divide-gray-200;
+    }
+</style>
+
 <template>
-    <div class="grid lg:grid-cols-4 place-items-center h-full max-lg:overflow-y-auto">
+    <div
+        class="flex flex-col lg:grid lg:grid-cols-4 place-items-center h-full max-lg:overflow-y-auto"
+    >
         <div
-            class="w-full h-full bg-gray-300 bg-opacity-40 lg:overflow-y-auto lg:pb-20 mt-1.5 lg:rounded-r-md max-lg:order-last"
+            class="panel-section-group lg:rounded-r-md max-lg:order-last max-lg:border-t border-gray-200"
         >
             <SkinsPanel v-model:state="state" />
-            <StatsPanel :state="state" :per-click-bonus="perClickBonus" />
+            <StatsPanel
+                :state="state"
+                :click-multiplier="clickMultiplier"
+                :variety-bonus="varietyBonus"
+            />
             <PanelSection title="Debug">
                 <div class="flex flex-col space-y-4 bg-white bg-opacity-50">
                     <p>{{ tacoAnimationState }}</p>
@@ -74,9 +92,9 @@
             </PanelSection>
         </div>
 
-        <div class="lg:col-span-2 flex flex-col mt-10 lg:-mt-32">
+        <div class="lg:col-span-2 flex flex-col mt-10 lg:-mt-32 max-lg:my-auto max-lg:pt-[7.5vw]">
             <div
-                class="mx-auto text-4xl mb-10 font-mono text-gray-900 text-opacity-50 font-semibold"
+                class="mx-auto text-4xl mb-4 lg:mb-10 font-mono text-gray-900 text-opacity-50 font-semibold"
             >
                 {{ Math.floor(state.tacos).toLocaleString() }}
             </div>
@@ -84,23 +102,23 @@
             <button
                 @click="userClick"
                 type="button"
-                class="rounded-full px-5 pb-7 md:pl-16 md:pb-14 md:pr-5 md:pt-5"
+                class="rounded-full px-5 pb-7"
                 :class="tacoAnimationState ? 'scale-[97%]' : 'scale-100'"
             >
-                <span class="max-w-[448px] max-h-[325px] w-full h-full">
+                <span
+                    class="flex justify-center items-center max-w-[448px] max-h-[325px] w-full h-full"
+                >
                     <img
                         :src="SKINS[state.selectedSkin].icon"
                         :alt="`${state.selectedSkin} Taco`"
                         draggable="false"
-                        class="max-w-full md:max-w-[448px] max-h-[325px]"
+                        class="max-w-[70%] md:max-w-[448px] max-h-[325px]"
                     />
                 </span>
             </button>
         </div>
 
-        <div
-            class="w-full h-full bg-gray-300 bg-opacity-40 lg:overflow-y-auto lg:pb-20 mt-1.5 lg:rounded-l-md"
-        >
+        <div class="panel-section-group lg:rounded-l-md">
             <ToppingsPanel v-model:state="state" />
         </div>
     </div>
