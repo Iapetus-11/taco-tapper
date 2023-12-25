@@ -41,11 +41,11 @@
                 type="button"
                 class="flex items-center space-x-1.5 bg-white bg-opacity-60 hover:bg-opacity-50 p-1"
             >
-                <span class="flex items-center justify-center min-w-[64px]">
+                <span class="flex items-center justify-center min-w-[76px]">
                     <img
                         :src="toppingProps.icon"
                         :alt="toppingName"
-                        class="max-w-[64px] max-h-[64px] h-full p-2"
+                        class="max-w-[76px] max-h-[76px] h-full p-2"
                     />
                 </span>
 

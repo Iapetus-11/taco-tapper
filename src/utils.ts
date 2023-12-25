@@ -120,6 +120,7 @@ export function useTailwindBreakpoint(breakpoint: TailwindBreakpoint): Ref<boole
     onMounted(() => {
         mediaQueryList = window.matchMedia(TAILWIND_MEDIA_QUERIES[breakpoint]);
         mediaQueryList.addEventListener('change', onMediaQueryChange);
+        onMediaQueryChange();
     });
 
     onBeforeUnmount(() => {

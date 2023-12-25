@@ -2,11 +2,15 @@
     import { type GameState } from '@/game';
     import PanelSection from '@/views/game/PanelSection.vue';
     import { computed, ref } from 'vue';
+    import { useTailwindBreakpoint } from '@/utils';
 
     const props = defineProps<{
         state: GameState;
-        perClickBonus: number;
+        clickMultiplier: number;
+        varietyBonus: number;
     }>();
+
+    const mobileView = useTailwindBreakpoint('max-lg');
 
     const openedForDetailStat = ref<string>();
     function openStatForDetail(stat: string) {
@@ -25,14 +29,15 @@
                 description: 'The total number of clicks',
             },
             {
-                name: 'Click Multiplier',
-                value: `${props.perClickBonus.toFixed(2)}x`,
-                description: 'The number of additional tacos earned per click',
+                name: 'Variety Bonus',
+                value: `${props.varietyBonus.toFixed(2)}x`,
+                description:
+                    'An extra bonus to the click multiplier, increases as you unlock more types of toppings',
             },
             {
-                name: 'Efficiency',
-                value: `${Math.round((props.state.totalTacos / props.state.clicks) * 100) || 0}%`,
-                description: 'The ratio of all-time earned tacos per click',
+                name: 'Click Multiplier',
+                value: `${props.clickMultiplier.toFixed(2)}x`,
+                description: 'The number of additional tacos earned per click',
             },
         ],
     );
@@ -41,12 +46,12 @@
 <template>
     <PanelSection title="Statistics">
         <div class="flex flex-col divide-y-2 divide-purple-300 divide-opacity-75">
-            <button
+            <div
                 v-for="{ name, value, description } in statistics"
                 :key="name"
                 @click="openStatForDetail(name)"
-                type="button"
-                class="flex flex-col justify-center bg-white bg-opacity-60 hover:bg-opacity-50 py-1.5 px-2.5"
+                :role="mobileView ? 'none' : 'button'"
+                class="flex flex-col justify-center bg-white bg-opacity-60 lg:hover:bg-opacity-50 py-1.5 px-2.5"
             >
                 <span class="flex justify-between w-full text-sm">
                     <span class="text-gray-700">{{ name }}</span>
@@ -63,13 +68,13 @@
                     mode="out-in"
                 >
                     <p
-                        v-if="openedForDetailStat === name"
+                        v-if="openedForDetailStat === name || mobileView"
                         class="h-full text-xs text-left text-gray-700"
                     >
                         {{ description }}
                     </p>
                 </Transition>
-            </button>
+            </div>
         </div>
     </PanelSection>
 </template>
