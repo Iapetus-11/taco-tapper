@@ -108,3 +108,26 @@ export const TOPPINGS = {
     },
 } as const;
 export type OwnedToppings = Partial<Record<keyof typeof TOPPINGS, number>>;
+
+export const AUTO_CLICKERS = {
+    'Taco Stand': {
+
+    },
+    'Taco Truck': {},
+    'Taco Shack': {},
+    'Taco Resturaunt': {
+        price: 0,
+        cps: 10,
+        icon: '',
+    },
+    'Taco Factory': {
+        price: 0,
+        cps: 10,
+        icon: '',
+    },
+    'Taco Instantaneo-materializer-inator': {
+        price: 0,
+        cps: 100,
+        icon: '',
+    },
+}
