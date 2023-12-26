@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import { onBeforeUnmount, onMounted, ref, watch } from 'vue';
+    import { ref, watch } from 'vue';
     import { useTailwindBreakpoint } from '@/utils';
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
     import { faChevronRight } from '@fortawesome/pro-solid-svg-icons';
@@ -13,15 +13,6 @@
     const mobileView = useTailwindBreakpoint('max-lg');
 
     watch(mobileView, () => (slideoutOpen.value = false));
-
-    function onWindowKeyDown(ev: KeyboardEvent) {
-        if (ev.key === 'Escape') {
-            slideoutOpen.value = false;
-        }
-    }
-
-    onMounted(() => window.addEventListener('keydown', onWindowKeyDown));
-    onBeforeUnmount(() => window.removeEventListener('keydown', onWindowKeyDown));
 </script>
 
 <style scoped>
