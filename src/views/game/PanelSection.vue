@@ -15,38 +15,6 @@
     watch(mobileView, () => (slideoutOpen.value = false));
 </script>
 
-<style scoped>
-    @keyframes fade-slideout-backdrop {
-        0% {
-            background-color: rgba(55, 65, 81, 0%);
-        }
-
-        100% {
-            background-color: rgba(55, 65, 81, 50%);
-        }
-    }
-
-    .fade-slideout-backdrop {
-        animation: fade-slideout-backdrop ease-in-out 150ms;
-        animation-fill-mode: forwards;
-    }
-
-    @keyframes slideout {
-        0% {
-            max-width: 0;
-        }
-
-        100% {
-            max-width: 85%;
-        }
-    }
-
-    .slideout {
-        animation: slideout ease-in-out 150ms;
-        animation-fill-mode: forwards;
-    }
-</style>
-
 <template>
     <div>
         <div
