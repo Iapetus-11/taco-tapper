@@ -76,9 +76,7 @@
                     <FontAwesomeIcon :icon="faChevronRight" size="lg" class="text-gray-500" />
                 </button>
 
-                <div
-                    class="w-full h-full overflow-y-scroll min-w-[85vw]"
-                >
+                <div class="w-full h-full overflow-y-scroll min-w-[85vw]">
                     <slot />
                 </div>
             </div>

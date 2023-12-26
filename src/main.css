@@ -6,6 +6,21 @@
     * {
         -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         @apply outline-none select-none;
+
+        /* Scrollbar */
+        scrollbar-color: #2e5841 #1d3729;
+        scrollbar-width: thin;
+    }
+
+    /* Scrollbar styles */
+    ::-webkit-scrollbar {
+        @apply w-2 h-2;
+    }
+    ::-webkit-scrollbar-track {
+        @apply rounded-md bg-purple-600;
+    }
+    ::-webkit-scrollbar-thumb {
+        @apply rounded-md bg-purple-400;
     }
 }
 
