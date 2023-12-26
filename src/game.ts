@@ -109,25 +109,35 @@ export const TOPPINGS = {
 } as const;
 export type OwnedToppings = Partial<Record<keyof typeof TOPPINGS, number>>;
 
+export type AutoClickerDefinition = {
+    price: number;
+    cps: number;
+    icon: string;
+};
 export const AUTO_CLICKERS = {
-    'Taco Stand': {
-
+    'Taco Truck': {
+        price: 128,
+        cps: 0.1,
+        icon: '',
     },
-    'Taco Truck': {},
-    'Taco Shack': {},
+    'Taco Shack': {
+        price: 1024,
+        cps: 1,
+        icon: '',
+    },
     'Taco Resturaunt': {
-        price: 0,
+        price: 8192,
         cps: 10,
         icon: '',
     },
     'Taco Factory': {
-        price: 0,
-        cps: 10,
-        icon: '',
-    },
-    'Taco Instantaneo-materializer-inator': {
-        price: 0,
+        price: 65536,
         cps: 100,
         icon: '',
     },
-}
+    'Taco Instantaneo-materializer-inator': {
+        price: 524288,
+        cps: 1000,
+        icon: '',
+    },
+} as const;
