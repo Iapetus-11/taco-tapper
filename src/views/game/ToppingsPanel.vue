@@ -12,16 +12,16 @@
 
     const showNotEnoughTacosModal = ref<keyof typeof TOPPINGS>();
 
-    function upgradeClick(upgradeName: keyof typeof TOPPINGS) {
-        const upgrade = TOPPINGS[upgradeName];
+    function toppingClick(toppingName: keyof typeof TOPPINGS) {
+        const topping = TOPPINGS[toppingName];
 
-        if (upgrade.price > state.value.tacos) {
-            showNotEnoughTacosModal.value = upgradeName;
+        if (topping.price > state.value.tacos) {
+            showNotEnoughTacosModal.value = toppingName;
             return;
         }
 
-        state.value.ownedToppings[upgradeName] = (state.value.ownedToppings[upgradeName] ?? 0) + 1;
-        state.value.tacos -= upgrade.price;
+        state.value.ownedToppings[toppingName] = (state.value.ownedToppings[toppingName] ?? 0) + 1;
+        state.value.tacos -= topping.price;
     }
 </script>
 
@@ -37,7 +37,7 @@
                     ToppingDefinition,
                 ][]"
                 :key="toppingName"
-                @click="() => upgradeClick(toppingName)"
+                @click="() => toppingClick(toppingName)"
                 type="button"
                 class="flex items-center space-x-1.5 bg-white bg-opacity-60 hover:bg-opacity-50 p-1"
             >
