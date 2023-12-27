@@ -21,7 +21,7 @@
 </script>
 
 <template>
-    <PanelSection title="Tacos">
+    <PanelSection title="Taco Skins" description="Select the perfect taco for the job (the job is being tapped)">
         <div class="flex flex-col divide-y-2 divide-purple-300 divide-opacity-75">
             <button
                 v-for="[tacoName, tacoProps] in Object.entries(SKINS) as [
