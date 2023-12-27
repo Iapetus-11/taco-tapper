@@ -119,28 +119,28 @@ export type AutoClickerDefinition = {
 };
 export const AUTO_CLICKERS = {
     'Taco Truck': {
-        price: 128,
+        price: 256,
         cps: 0.1,
-        icon: '/art/tacos/goldy.png',
+        icon: '/art/automation/taco_truck.png',
     },
     'Taco Shack': {
-        price: 1024,
-        cps: 1,
+        price: 2048,
+        cps: 0.45,
         icon: '/art/tacos/goldy.png',
     },
     'Taco Restaurant': {
         price: 8192,
-        cps: 10,
+        cps: 2.25,
         icon: '/art/tacos/goldy.png',
     },
     'Taco Factory': {
-        price: 65536,
-        cps: 100,
+        price: 32768,
+        cps: 10.8,
         icon: '/art/tacos/goldy.png',
     },
     'Taco Instantaneo-materializer-inator': {
         price: 524288,
-        cps: 1000,
+        cps: 202,
         icon: '/art/tacos/goldy.png',
     },
 } as const;
