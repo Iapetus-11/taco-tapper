@@ -8,6 +8,7 @@
         state: GameState;
         clickMultiplier: number;
         varietyBonus: number;
+        autoClicksPerSecond: number;
     }>();
 
     const mobileView = useTailwindBreakpoint('max-lg');
@@ -38,6 +39,11 @@
                 name: 'Click Multiplier',
                 value: `${props.clickMultiplier.toFixed(2)}x`,
                 description: 'The number of additional tacos earned per click',
+            },
+            {
+                name: 'Automatic Clicks Per Second',
+                value: `${props.autoClicksPerSecond}`,
+                description: 'The number of automatic clicks generated per second',
             },
         ],
     );

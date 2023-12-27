@@ -1,22 +1,52 @@
 <script setup lang="ts">
-    import { usePersistedRef } from '@/utils';
-    import { type GameState, SKINS, TOPPINGS } from '@/game';
+    import { useInterval, usePersistedRef } from '@/utils';
+    import { AUTO_CLICKERS, type GameState, SKINS, TOPPINGS } from '@/game';
     import { computed, ref } from 'vue';
     import PanelSection from '@/views/game/PanelSection.vue';
     import SkinsPanel from '@/views/game/SkinsPanel.vue';
     import ToppingsPanel from '@/views/game/ToppingsPanel.vue';
     import StatsPanel from '@/views/game/StatsPanel.vue';
+    import AutoClickersPanel from './AutoClickersPanel.vue';
 
     const state = usePersistedRef<GameState>('game:state', {
         clicks: 0,
+        userClicks: 0,
+        fractionClicks: 0,
         tacos: 0,
         totalTacos: 0,
         ownedToppings: {},
+        ownedAutoClickers: {},
         ownedSkins: ['The Original'],
         selectedSkin: 'The Original',
     });
 
     const tacoAnimationState = ref(false);
+
+    const autoClicksPerSecond = computed(() => {
+        if (Object.keys(state.value.ownedAutoClickers).length <= 0) {
+            return 0;
+        }
+
+        return Object
+            .entries(state.value.ownedAutoClickers)
+            .map(([autoClickerName, c]) => AUTO_CLICKERS[autoClickerName as keyof typeof AUTO_CLICKERS].cps * c)
+            .reduce((sum, cur) => sum + cur);
+    });
+    useInterval(async () => {
+        let wholeClicks = Math.floor(autoClicksPerSecond.value);
+        state.value.fractionClicks += autoClicksPerSecond.value - wholeClicks;
+
+        if (state.value.fractionClicks >= 1) {
+            const flooredFractionClicks = Math.floor(state.value.fractionClicks);
+            state.value.fractionClicks -= flooredFractionClicks;
+            wholeClicks += flooredFractionClicks;
+        }
+
+        for (let i = 0; i < wholeClicks; i++) {
+            click();
+            await new Promise((resolve) => setTimeout(resolve, 950 / wholeClicks));
+        }
+    }, 1000);
 
     const varietyBonus = computed(() =>
         Math.pow(Object.values(state.value.ownedToppings).length / 5.0, 1.5),
@@ -31,7 +61,7 @@
         return toppingMultiplier + varietyBonus.value;
     });
 
-    function userClick() {
+    function click() {
         const earnedTacos = 1 + clickMultiplier.value;
         state.value.tacos += earnedTacos;
         state.value.totalTacos += earnedTacos;
@@ -40,6 +70,11 @@
 
         tacoAnimationState.value = true;
         setTimeout(() => (tacoAnimationState.value = false), 100);
+    }
+
+    function userClick() {
+        click();
+        state.value.userClicks += 1;
     }
 
     function debugYeetData() {
@@ -67,6 +102,7 @@
                 :state="state"
                 :click-multiplier="clickMultiplier"
                 :variety-bonus="varietyBonus"
+                :auto-clicks-per-second="autoClicksPerSecond"
             />
             <PanelSection title="Debug">
                 <div class="flex flex-col space-y-4 bg-white bg-opacity-50">
@@ -120,6 +156,7 @@
 
         <div class="panel-section-group lg:rounded-l-md">
             <ToppingsPanel v-model:state="state" />
+            <AutoClickersPanel v-model:state="state" />
         </div>
     </div>
 </template>

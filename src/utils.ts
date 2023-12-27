@@ -129,3 +129,10 @@ export function useTailwindBreakpoint(breakpoint: TailwindBreakpoint): Ref<boole
 
     return matches;
 }
+
+export function useInterval(callback: () => void, timeout: number) {
+    let interval: number | null = null;
+
+    onMounted(() => (interval = setInterval(callback, timeout)));
+    onBeforeUnmount(() => clearTimeout(interval!));
+}

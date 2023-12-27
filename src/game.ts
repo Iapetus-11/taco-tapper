@@ -1,8 +1,11 @@
 export type GameState = {
     clicks: number;
+    userClicks: number;
+    fractionClicks: number;
     tacos: number;
     totalTacos: number;
     ownedToppings: OwnedToppings;
+    ownedAutoClickers: OwnedAutoClickers;
     ownedSkins: (keyof typeof SKINS)[];
     selectedSkin: keyof typeof SKINS;
 };
@@ -118,26 +121,27 @@ export const AUTO_CLICKERS = {
     'Taco Truck': {
         price: 128,
         cps: 0.1,
-        icon: '',
+        icon: '/art/tacos/goldy.png',
     },
     'Taco Shack': {
         price: 1024,
         cps: 1,
-        icon: '',
+        icon: '/art/tacos/goldy.png',
     },
-    'Taco Resturaunt': {
+    'Taco Restaurant': {
         price: 8192,
         cps: 10,
-        icon: '',
+        icon: '/art/tacos/goldy.png',
     },
     'Taco Factory': {
         price: 65536,
         cps: 100,
-        icon: '',
+        icon: '/art/tacos/goldy.png',
     },
     'Taco Instantaneo-materializer-inator': {
         price: 524288,
         cps: 1000,
-        icon: '',
+        icon: '/art/tacos/goldy.png',
     },
 } as const;
+export type OwnedAutoClickers = Partial<Record<keyof typeof AUTO_CLICKERS, number>>;
