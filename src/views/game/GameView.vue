@@ -27,9 +27,11 @@
             return 0;
         }
 
-        return Object
-            .entries(state.value.ownedAutoClickers)
-            .map(([autoClickerName, c]) => AUTO_CLICKERS[autoClickerName as keyof typeof AUTO_CLICKERS].cps * c)
+        return Object.entries(state.value.ownedAutoClickers)
+            .map(
+                ([autoClickerName, c]) =>
+                    AUTO_CLICKERS[autoClickerName as keyof typeof AUTO_CLICKERS].cps * c,
+            )
             .reduce((sum, cur) => sum + cur);
     });
     useInterval(async () => {
@@ -44,7 +46,7 @@
 
         for (let i = 0; i < wholeClicks; i++) {
             click();
-            await new Promise((resolve) => setTimeout(resolve, 950 / wholeClicks));
+            await new Promise((resolve) => setTimeout(resolve, 990 / wholeClicks));
         }
     }, 1000);
 
@@ -69,7 +71,10 @@
         state.value.clicks += 1;
 
         tacoAnimationState.value = true;
-        setTimeout(() => (tacoAnimationState.value = false), 100);
+        setTimeout(
+            () => (tacoAnimationState.value = false),
+            autoClicksPerSecond.value > 100 ? 10 : 100,
+        );
     }
 
     function userClick() {
