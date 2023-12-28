@@ -5,7 +5,7 @@
 @layer base {
     * {
         -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-        @apply outline-none select-none;
+        @apply select-none outline-none;
 
         /* Scrollbar */
         scrollbar-color: #2e5841 #1d3729;
@@ -14,7 +14,7 @@
 
     /* Scrollbar styles */
     ::-webkit-scrollbar {
-        @apply w-2 h-2;
+        @apply h-2 w-2;
     }
     ::-webkit-scrollbar-track {
         @apply rounded-md bg-purple-600;
@@ -26,6 +26,6 @@
 
 @layer components {
     .desktop-panel {
-        @apply w-full h-full bg-gray-300 bg-opacity-40 overflow-y-auto pb-24 mt-1.5;
+        @apply mt-1.5 h-full w-full overflow-y-auto bg-gray-300 bg-opacity-40 pb-24;
     }
 }

@@ -1,8 +1,8 @@
 <script setup lang="ts">
     import { ref, watch } from 'vue';
-    import { useTailwindBreakpoint } from '@/utils';
-    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
     import { faChevronRight } from '@fortawesome/pro-solid-svg-icons';
+    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+    import { useTailwindBreakpoint } from '@/utils';
 
     defineProps<{
         title: string;
@@ -22,8 +22,8 @@
             :role="mobileView ? 'button' : 'none'"
             class="flex items-center p-4 max-lg:hover:bg-gray-700 max-lg:hover:bg-opacity-10"
         >
-            <div class="flex flex-col w-full">
-                <h2 class="text-xl text-white font-semibold">{{ title }}</h2>
+            <div class="flex w-full flex-col">
+                <h2 class="text-xl font-semibold text-white">{{ title }}</h2>
                 <p v-if="description" class="text-xs text-gray-50">{{ description }}</p>
             </div>
 
@@ -50,7 +50,7 @@
             <div
                 v-if="mobileView && mobileTrayOpen"
                 @click="mobileTrayOpen = false"
-                class="absolute top-0 right-0 w-[100vw] h-[100vh] z-40 bg-gray-700 opacity-50"
+                class="absolute right-0 top-0 z-40 h-[100vh] w-[100vw] bg-gray-700 opacity-50"
             />
         </Transition>
 
@@ -66,17 +66,17 @@
         >
             <div
                 v-if="mobileView && mobileTrayOpen"
-                class="absolute top-0 right-0 h-[100vh] z-50 w-[85vw] bg-gradient-to-b from-purple-300 via-purple-600 to-violet-700 rounded-l-lg overflow-hidden"
+                class="absolute right-0 top-0 z-50 h-[100vh] w-[85vw] overflow-hidden rounded-l-lg bg-gradient-to-b from-purple-300 via-purple-600 to-violet-700"
             >
                 <button
                     @click="mobileTrayOpen = false"
                     type="button"
-                    class="absolute top-1/2 left-0 -translate-y-1/2 pl-1 pr-2 py-2 rounded-r-full bg-gray-300 opacity-75 shadow-sm"
+                    class="absolute left-0 top-1/2 -translate-y-1/2 rounded-r-full bg-gray-300 py-2 pl-1 pr-2 opacity-75 shadow-sm"
                 >
                     <FontAwesomeIcon :icon="faChevronRight" size="lg" class="text-gray-500" />
                 </button>
 
-                <div class="w-full h-full overflow-y-auto min-w-[85vw]">
+                <div class="h-full w-full min-w-[85vw] overflow-y-auto">
                     <slot />
                 </div>
             </div>

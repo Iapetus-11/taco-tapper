@@ -1,8 +1,14 @@
 <script setup lang="ts">
-    import { useInterval, usePersistedRef } from '@/utils';
     import { AUTO_CLICKERS, type GameState, SKINS, TOPPINGS } from '@/game';
+    import {
+        AutoClickersPanel,
+        PanelSection,
+        SkinsPanel,
+        StatsPanel,
+        ToppingsPanel,
+    } from './panels';
     import { computed, ref } from 'vue';
-    import { AutoClickersPanel, PanelSection, SkinsPanel, StatsPanel, ToppingsPanel } from './panels';
+    import { useInterval, usePersistedRef } from '@/utils';
 
     const state = usePersistedRef<GameState>('game:state', {
         clicks: 0,
@@ -86,17 +92,17 @@
 
 <style scoped>
     .panel-section-group {
-        @apply w-full lg:h-full bg-gray-300 bg-opacity-40 lg:overflow-y-auto lg:pb-20 lg:mt-1.5;
-        @apply max-lg:divide-y divide-gray-200;
+        @apply w-full bg-gray-300 bg-opacity-40 lg:mt-1.5 lg:h-full lg:overflow-y-auto lg:pb-20;
+        @apply divide-gray-200 max-lg:divide-y;
     }
 </style>
 
 <template>
     <div
-        class="flex flex-col lg:grid lg:grid-cols-4 place-items-center h-full max-lg:overflow-y-auto"
+        class="flex h-full flex-col place-items-center max-lg:overflow-y-auto lg:grid lg:grid-cols-4"
     >
         <div
-            class="panel-section-group lg:rounded-r-md max-lg:order-last max-lg:border-t border-gray-200"
+            class="panel-section-group border-gray-200 max-lg:order-last max-lg:border-t lg:rounded-r-md"
         >
             <SkinsPanel v-model:state="state" />
             <StatsPanel
@@ -115,13 +121,13 @@
                 </div>
 
                 <div class="flex gap-2">
-                    <button type="button" @click="debugYeetData()" class="p-1.5 w-full bg-red-500">
+                    <button type="button" @click="debugYeetData()" class="w-full bg-red-500 p-1.5">
                         Yeet Data
                     </button>
                     <button
                         type="button"
                         @click="state.tacos += 1000"
-                        class="p-1.5 w-full bg-green-500"
+                        class="w-full bg-green-500 p-1.5"
                     >
                         Add 1k
                     </button>
@@ -129,9 +135,9 @@
             </PanelSection>
         </div>
 
-        <div class="lg:col-span-2 flex flex-col mt-10 lg:-mt-32 max-lg:my-auto max-lg:pt-[7.5vw]">
+        <div class="mt-10 flex flex-col max-lg:my-auto max-lg:pt-[7.5vw] lg:col-span-2 lg:-mt-32">
             <div
-                class="mx-auto text-4xl mb-4 lg:mb-10 font-mono text-gray-900 text-opacity-50 font-semibold"
+                class="mx-auto mb-4 font-mono text-4xl font-semibold text-gray-900 text-opacity-50 lg:mb-10"
             >
                 {{ Math.floor(state.tacos).toLocaleString() }}
             </div>
@@ -143,13 +149,13 @@
                 :class="tacoAnimationState ? 'scale-[97%]' : 'scale-100'"
             >
                 <span
-                    class="flex justify-center items-center max-w-[448px] max-h-[325px] w-full h-full"
+                    class="flex h-full max-h-[325px] w-full max-w-[448px] items-center justify-center"
                 >
                     <img
                         :src="SKINS[state.selectedSkin].icon"
                         :alt="`${state.selectedSkin} Taco`"
                         draggable="false"
-                        class="max-w-[70%] md:max-w-[448px] max-h-[325px]"
+                        class="max-h-[325px] max-w-[70%] md:max-w-[448px]"
                     />
                 </span>
             </button>
