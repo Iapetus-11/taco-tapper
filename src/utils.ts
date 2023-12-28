@@ -78,7 +78,7 @@ export function usePersistedRef<T>(key: string, defaultValue?: T): Ref<UnwrapRef
 export function useVModelRef<
     Props extends Record<string, any>,
     PropName extends Extract<keyof Props, string>,
-    Emit extends (evt: `update:${PropName}`, value: any) => void,
+    Emit extends (evt: `update:${PropName}`, value: Props[PropName]) => void,
 >(propName: PropName, { props, emit }: { props: Props; emit: Emit }) {
     return computed({
         get: () => props[propName],
