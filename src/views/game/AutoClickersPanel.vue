@@ -2,14 +2,26 @@
     import { type GameState, type AutoClickerDefinition, AUTO_CLICKERS } from '@/game';
     import PanelSection from '@/views/game/PanelSection.vue';
     import { useVModelRef } from '@/utils';
+    import NotEnoughTacosForAutoClickerModal from '@/views/game/NotEnoughTacosForAutoClickerModal.vue';
+    import { ref } from 'vue';
 
     const props = defineProps<{ state: GameState }>();
     const emit = defineEmits<{ 'update:state': [state: GameState] }>();
 
     const state = useVModelRef('state', { props, emit });
 
+    const showNotEnoughTacosModal = ref<keyof typeof AUTO_CLICKERS>();
+
     function autoClickerClick(autoClickerName: keyof typeof AUTO_CLICKERS) {
-        state.value.ownedAutoClickers[autoClickerName] = (state.value.ownedAutoClickers[autoClickerName] ?? 0) + 1;
+        const autoClicker = AUTO_CLICKERS[autoClickerName];
+
+        if (autoClicker.price > state.value.tacos) {
+            showNotEnoughTacosModal.value = autoClickerName;
+            return;
+        }
+
+        state.value.ownedAutoClickers[autoClickerName] =
+            (state.value.ownedAutoClickers[autoClickerName] ?? 0) + 1;
     }
 </script>
 
@@ -25,7 +37,7 @@
                     AutoClickerDefinition,
                 ][]"
                 :key="autoClickerName"
-                @click="autoClickerClick(autoClickerName);"
+                @click="autoClickerClick(autoClickerName)"
                 type="button"
                 class="flex items-center space-x-1.5 bg-white bg-opacity-60 hover:bg-opacity-50 p-1"
             >
@@ -41,12 +53,15 @@
                     <span class="text-sm text-gray-600 font-semibold">
                         {{ autoClickerName }}
 
-                        <span v-if="state.ownedAutoClickers[autoClickerName]" class="font-light text-xs">
+                        <span
+                            v-if="state.ownedAutoClickers[autoClickerName]"
+                            class="font-light text-xs"
+                        >
                             [{{ state.ownedAutoClickers[autoClickerName] }}]
                         </span>
                     </span>
                     <span class="text-xs text-gray-500">
-                        Clicks automatically 
+                        Clicks automatically
                         <strong>{{ autoClickerProps.cps }}x</strong> per second, costs
                         <strong>{{ autoClickerProps.price }}</strong> tacos
                     </span>
@@ -54,4 +69,10 @@
             </button>
         </div>
     </PanelSection>
+
+    <NotEnoughTacosForAutoClickerModal
+        v-if="showNotEnoughTacosModal"
+        @close="showNotEnoughTacosModal = undefined"
+        :auto-clicker-name="showNotEnoughTacosModal"
+    />
 </template>
