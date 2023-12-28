@@ -1,9 +1,9 @@
 <script setup lang="ts">
     import { AUTO_CLICKERS, type AutoClickerDefinition, type GameState } from '@/game';
-    import PanelSection from '@/views/game/panels/PanelSection.vue';
-    import { useVModelRef } from '@/utils';
     import NotEnoughTacosForAutoClickerModal from './NotEnoughTacosForAutoClickerModal.vue';
+    import PanelSection from '@/views/game/panels/PanelSection.vue';
     import { ref } from 'vue';
+    import { useVModelRef } from '@/utils';
 
     const props = defineProps<{ state: GameState }>();
     const emit = defineEmits<{ 'update:state': [state: GameState] }>();
@@ -39,23 +39,23 @@
                 :key="autoClickerName"
                 @click="autoClickerClick(autoClickerName)"
                 type="button"
-                class="flex items-center space-x-1.5 bg-white bg-opacity-60 hover:bg-opacity-50 p-1"
+                class="flex items-center space-x-1.5 bg-white bg-opacity-60 p-1 hover:bg-opacity-50"
             >
-                <span class="flex items-center justify-center min-w-[76px]">
+                <span class="flex min-w-[76px] items-center justify-center">
                     <img
                         :src="autoClickerProps.icon"
                         :alt="autoClickerName"
-                        class="max-w-[76px] max-h-[76px] h-full p-2"
+                        class="h-full max-h-[76px] max-w-[76px] p-2"
                     />
                 </span>
 
                 <span class="flex flex-col text-left">
-                    <span class="text-sm text-gray-600 font-semibold">
+                    <span class="text-sm font-semibold text-gray-600">
                         {{ autoClickerName }}
 
                         <span
                             v-if="state.ownedAutoClickers[autoClickerName]"
-                            class="font-light text-xs"
+                            class="text-xs font-light"
                         >
                             [{{ state.ownedAutoClickers[autoClickerName] }}]
                         </span>

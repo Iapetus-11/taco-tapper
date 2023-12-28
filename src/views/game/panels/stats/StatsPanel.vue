@@ -1,7 +1,7 @@
 <script setup lang="ts">
+    import { computed, ref } from 'vue';
     import { type GameState } from '@/game';
     import PanelSection from '@/views/game/panels/PanelSection.vue';
-    import { computed, ref } from 'vue';
     import { useTailwindBreakpoint } from '@/utils';
 
     const props = defineProps<{
@@ -76,9 +76,9 @@
                 :key="name"
                 @click="openStatForDetail(name)"
                 :role="mobileView ? 'none' : 'button'"
-                class="flex flex-col justify-center bg-white bg-opacity-60 lg:hover:bg-opacity-50 py-1.5 px-2.5"
+                class="flex flex-col justify-center bg-white bg-opacity-60 px-2.5 py-1.5 lg:hover:bg-opacity-50"
             >
-                <span class="flex justify-between w-full text-sm">
+                <span class="flex w-full justify-between text-sm">
                     <span class="text-gray-700">{{ name }}</span>
                     <code>{{ value }}</code>
                 </span>
@@ -94,7 +94,7 @@
                 >
                     <p
                         v-if="openedForDetailStat === name || mobileView"
-                        class="h-full text-xs text-left text-gray-700 overflow-hidden"
+                        class="h-full overflow-hidden text-left text-xs text-gray-700"
                     >
                         {{ description }}
                     </p>

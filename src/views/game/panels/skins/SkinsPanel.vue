@@ -1,9 +1,9 @@
 <script setup lang="ts">
-    import { type GameState, SKINS, type SkinDefinition } from '@/game';
+    import { type GameState, type SkinDefinition, SKINS } from '@/game';
+    import { faCheck } from '@fortawesome/pro-solid-svg-icons';
+    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
     import PanelSection from '@/views/game/panels/PanelSection.vue';
     import { useVModelRef } from '@/utils';
-    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-    import { faCheck } from '@fortawesome/pro-solid-svg-icons';
 
     const props = defineProps<{ state: GameState }>();
     const emit = defineEmits<{ 'update:state': [state: GameState] }>();
@@ -34,28 +34,28 @@
                 :key="tacoName"
                 @click="() => tacoClick(tacoName)"
                 type="button"
-                class="flex items-center space-x-1.5 bg-white bg-opacity-60 hover:bg-opacity-50 p-1 w-full"
+                class="flex w-full items-center space-x-1.5 bg-white bg-opacity-60 p-1 hover:bg-opacity-50"
             >
-                <span class="flex items-center justify-center min-w-[96px] min-h-[74px]">
+                <span class="flex min-h-[74px] min-w-[96px] items-center justify-center">
                     <img
                         :src="tacoProps.icon"
                         :alt="tacoName"
-                        class="max-w-[96px] max-h-[74px] h-full w-fit p-2"
+                        class="h-full max-h-[74px] w-fit max-w-[96px] p-2"
                     />
                 </span>
 
-                <span class="flex flex-col !mx-2 text-left">
+                <span class="!mx-2 flex flex-col text-left">
                     <span class="text-gray-800">
                         {{ tacoName }}
 
                         <span
                             v-if="tacoProps.price && !state.ownedSkins.includes(tacoName)"
-                            class="font-light text-sm"
+                            class="text-sm font-light"
                         >
                             [{{ tacoProps.price }}]
                         </span>
                     </span>
-                    <span class="text-gray-600 text-xs">{{ tacoProps.description }}</span>
+                    <span class="text-xs text-gray-600">{{ tacoProps.description }}</span>
                 </span>
 
                 <FontAwesomeIcon

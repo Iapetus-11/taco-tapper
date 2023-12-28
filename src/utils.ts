@@ -1,5 +1,5 @@
-import type { Ref, UnwrapRef } from 'vue';
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+import type { Ref, UnwrapRef } from 'vue';
 
 export function fillInDefaultsDeep(target: object, defaults: object) {
     Object.entries(defaults).forEach(([key, value]) => {

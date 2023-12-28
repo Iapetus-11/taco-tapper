@@ -13,12 +13,12 @@
 
 <template>
     <div
-        class="flex max-sm:flex-col max-sm:pt-2 max-sm:pb-3 sm:justify-between items-center px-10 w-full min-h-[84px] sm:min-h-[64px] bg-violet-600 shadow-md shadow-violet-500 text-white"
+        class="flex min-h-[84px] w-full items-center bg-violet-600 px-10 text-white shadow-md shadow-violet-500 max-sm:flex-col max-sm:pb-3 max-sm:pt-2 sm:min-h-[64px] sm:justify-between"
     >
         <div class="flex items-center max-sm:mb-1">
-            <img src="/art/tacos/pixel.png" alt="Pixel Taco" class="h-9 mr-3" />
+            <img src="/art/tacos/pixel.png" alt="Pixel Taco" class="mr-3 h-9" />
 
-            <h1 class="font-semibold text-3xl leading-none whitespace-nowrap">Taco Tapper</h1>
+            <h1 class="whitespace-nowrap text-3xl font-semibold leading-none">Taco Tapper</h1>
         </div>
 
         <nav>
