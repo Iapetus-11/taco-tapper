@@ -1,8 +1,8 @@
 <script setup lang="ts">
-    import { type GameState, type AutoClickerDefinition, AUTO_CLICKERS } from '@/game';
-    import PanelSection from '@/views/game/PanelSection.vue';
+    import { AUTO_CLICKERS, type AutoClickerDefinition, type GameState } from '@/game';
+    import PanelSection from '@/views/game/panels/PanelSection.vue';
     import { useVModelRef } from '@/utils';
-    import NotEnoughTacosForAutoClickerModal from '@/views/game/NotEnoughTacosForAutoClickerModal.vue';
+    import NotEnoughTacosForAutoClickerModal from './NotEnoughTacosForAutoClickerModal.vue';
     import { ref } from 'vue';
 
     const props = defineProps<{ state: GameState }>();

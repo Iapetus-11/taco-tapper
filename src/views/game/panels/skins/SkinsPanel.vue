@@ -1,6 +1,6 @@
 <script setup lang="ts">
-    import { type GameState, type SkinDefinition, SKINS } from '@/game';
-    import PanelSection from '@/views/game/PanelSection.vue';
+    import { type GameState, SKINS, type SkinDefinition } from '@/game';
+    import PanelSection from '@/views/game/panels/PanelSection.vue';
     import { useVModelRef } from '@/utils';
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
     import { faCheck } from '@fortawesome/pro-solid-svg-icons';
