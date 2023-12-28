@@ -26,8 +26,27 @@
         () => [
             {
                 name: 'Total Clicks',
-                value: props.state.clicks,
-                description: 'The total number of clicks',
+                value: props.state.userClicks.toLocaleString(),
+                description:
+                    'The total number of clicks, excludes clicks made by auto-clickers (Taco Truck, etc...)',
+            },
+            {
+                name: 'Total Automatic Clicks',
+                value: (props.state.clicks - props.state.userClicks).toLocaleString(),
+                description:
+                    'The total number of automatic clicks (made by auto-clickers like the Taco Truck)',
+            },
+            {
+                name: 'Total Tacos Earned',
+                value: Math.floor(props.state.totalTacos).toLocaleString(),
+                description:
+                    'The total number of tacos earned, spent tacos are not subtracted from this number',
+            },
+            {
+                name: 'Total Tacos Spent',
+                value: Math.floor(props.state.totalTacos - props.state.tacos).toLocaleString(),
+                description:
+                    'The total number of tacos spent on toppings, auto-clickers, and skins',
             },
             {
                 name: 'Variety Bonus',
@@ -42,7 +61,7 @@
             },
             {
                 name: 'Automatic Clicks Per Second',
-                value: `${props.autoClicksPerSecond}`,
+                value: props.autoClicksPerSecond.toLocaleString(),
                 description: 'The number of automatic clicks generated per second',
             },
         ],
@@ -67,15 +86,15 @@
                 <Transition
                     enter-active-class="transition-all ease-linear duration-200"
                     enter-from-class="max-h-[0]"
-                    enter-to-class="max-h-[2rem]"
+                    enter-to-class="max-h-[5rem]"
                     leave-active-class="transition-all ease-linear duration-100"
-                    leave-from-class="max-h-[2rem]"
+                    leave-from-class="max-h-[5rem]"
                     leave-to-class="max-h-[0]"
                     mode="out-in"
                 >
                     <p
                         v-if="openedForDetailStat === name || mobileView"
-                        class="h-full text-xs text-left text-gray-700"
+                        class="h-full text-xs text-left text-gray-700 overflow-hidden"
                     >
                         {{ description }}
                     </p>
