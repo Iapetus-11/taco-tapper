@@ -9,16 +9,16 @@
         description?: string;
     }>();
 
-    const slideoutOpen = ref(false);
+    const mobileTrayOpen = ref(false);
     const mobileView = useTailwindBreakpoint('max-lg');
 
-    watch(mobileView, () => (slideoutOpen.value = false));
+    watch(mobileView, () => (mobileTrayOpen.value = false));
 </script>
 
 <template>
     <div>
         <div
-            @click="slideoutOpen = true"
+            @click="mobileTrayOpen = true"
             :role="mobileView ? 'button' : 'none'"
             class="flex items-center p-4 max-lg:hover:bg-gray-700 max-lg:hover:bg-opacity-10"
         >
@@ -37,7 +37,7 @@
             <slot />
         </div>
 
-        <!-- Mobile view slideout backdrop -->
+        <!-- Mobile view tray backdrop -->
         <Transition
             enter-active-class="transition-all duration-150"
             enter-from-class="!opacity-0"
@@ -48,13 +48,13 @@
             mode="out-in"
         >
             <div
-                v-if="mobileView && slideoutOpen"
-                @click="slideoutOpen = false"
+                v-if="mobileView && mobileTrayOpen"
+                @click="mobileTrayOpen = false"
                 class="absolute top-0 right-0 w-[100vw] h-[100vh] z-40 bg-gray-700 opacity-50"
             />
         </Transition>
 
-        <!-- Mobile view slideout content -->
+        <!-- Mobile view tray content -->
         <Transition
             enter-active-class="transition-all duration-150"
             enter-from-class="max-w-0"
@@ -65,11 +65,11 @@
             mode="out-in"
         >
             <div
-                v-if="mobileView && slideoutOpen"
+                v-if="mobileView && mobileTrayOpen"
                 class="absolute top-0 right-0 h-[100vh] z-50 w-[85vw] bg-gradient-to-b from-purple-300 via-purple-600 to-violet-700 rounded-l-lg overflow-hidden"
             >
                 <button
-                    @click="slideoutOpen = false"
+                    @click="mobileTrayOpen = false"
                     type="button"
                     class="absolute top-1/2 left-0 -translate-y-1/2 pl-1 pr-2 py-2 rounded-r-full bg-gray-300 opacity-75 shadow-sm"
                 >

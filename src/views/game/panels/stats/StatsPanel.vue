@@ -1,6 +1,6 @@
 <script setup lang="ts">
     import { type GameState } from '@/game';
-    import PanelSection from '@/views/game/PanelSection.vue';
+    import PanelSection from '@/views/game/panels/PanelSection.vue';
     import { computed, ref } from 'vue';
     import { useTailwindBreakpoint } from '@/utils';
 

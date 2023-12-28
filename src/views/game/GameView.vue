@@ -2,11 +2,7 @@
     import { useInterval, usePersistedRef } from '@/utils';
     import { AUTO_CLICKERS, type GameState, SKINS, TOPPINGS } from '@/game';
     import { computed, ref } from 'vue';
-    import PanelSection from '@/views/game/PanelSection.vue';
-    import SkinsPanel from '@/views/game/SkinsPanel.vue';
-    import ToppingsPanel from '@/views/game/ToppingsPanel.vue';
-    import StatsPanel from '@/views/game/StatsPanel.vue';
-    import AutoClickersPanel from './AutoClickersPanel.vue';
+    import { AutoClickersPanel, PanelSection, SkinsPanel, StatsPanel, ToppingsPanel } from './panels';
 
     const state = usePersistedRef<GameState>('game:state', {
         clicks: 0,

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-    import { type GameState, type ToppingDefinition, TOPPINGS } from '@/game';
-    import PanelSection from '@/views/game/PanelSection.vue';
+    import { type GameState, TOPPINGS, type ToppingDefinition } from '@/game';
+    import PanelSection from '@/views/game/panels/PanelSection.vue';
     import { useVModelRef } from '@/utils';
     import { ref } from 'vue';
-    import NotEnoughTacosForToppingModal from '@/views/game/NotEnoughTacosForToppingModal.vue';
+    import NotEnoughTacosForToppingModal from './NotEnoughTacosForToppingModal.vue';
 
     const props = defineProps<{ state: GameState }>();
     const emit = defineEmits<{ 'update:state': [state: GameState] }>();
