@@ -79,7 +79,7 @@ export function useVModelRef<
     Props extends Record<string, any>,
     PropName extends Extract<keyof Props, string>,
     Emit extends (evt: `update:${PropName}`, value: Props[PropName]) => void,
->(propName: PropName, { props, emit }: { props: Props; emit: Emit }) {
+>(propName: PropName, { props, emit }: { props: Props; emit: Emit }): Ref<Props[PropName]> {
     return computed({
         get: () => props[propName],
         set: (value) => emit(`update:${propName}`, value),
