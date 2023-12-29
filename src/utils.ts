@@ -1,6 +1,9 @@
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import type { Ref, UnwrapRef } from 'vue';
 
+/**
+ * Recursively adds missing keys to target from defaults
+ */
 export function fillInDefaultsDeep(target: object, defaults: object) {
     Object.entries(defaults).forEach(([key, value]) => {
         if (!(key in target)) {
@@ -24,6 +27,9 @@ export function fillInDefaultsDeep(target: object, defaults: object) {
     });
 }
 
+/**
+ * A composable for persisting any JSON serializable data in localStorage between sessions
+ */
 export function usePersistedRef<T>(key: string, initialValue: T): Ref<UnwrapRef<T>>;
 export function usePersistedRef<T>(key: string, defaultValue?: T): Ref<UnwrapRef<T> | null> {
     const store = ref(defaultValue ?? null);
