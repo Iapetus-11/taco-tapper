@@ -41,7 +41,7 @@
                 type="button"
                 class="flex items-center space-x-1.5 bg-white bg-opacity-60 p-1 hover:bg-opacity-50"
             >
-                <span class="flex min-w-[76px] items-center justify-center">
+                <span class="flex min-h-[76px] min-w-[76px] items-center justify-center">
                     <img
                         :src="autoClickerProps.icon"
                         :alt="autoClickerName"
