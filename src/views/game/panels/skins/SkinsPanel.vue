@@ -2,7 +2,9 @@
     import { type GameState, type SkinDefinition, SKINS } from '@/game';
     import { faCheck } from '@fortawesome/pro-solid-svg-icons';
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+    import NotEnoughTacosForSkinModal from '@/views/game/panels/skins/NotEnoughTacosForSkinModal.vue';
     import PanelSection from '@/views/game/panels/PanelSection.vue';
+    import { ref } from 'vue';
     import { useVModelRef } from '@/utils';
 
     const props = defineProps<{ state: GameState }>();
@@ -10,13 +12,21 @@
 
     const state = useVModelRef('state', { props, emit });
 
-    function tacoClick(taco: keyof typeof SKINS) {
-        if (!props.state.ownedSkins.includes(taco)) {
-            // TODO: Purchase modal
-            state.value.ownedSkins.push(taco);
+    const showNotEnoughTacosModal = ref<keyof typeof SKINS>();
+
+    function skinClick(skinName: keyof typeof SKINS) {
+        const skin = SKINS[skinName];
+
+        if (!props.state.ownedSkins.includes(skinName)) {
+            if (skin.price > state.value.tacos) {
+                showNotEnoughTacosModal.value = skinName;
+                return;
+            }
+
+            state.value.ownedSkins.push(skinName);
         }
 
-        state.value.selectedSkin = taco;
+        state.value.selectedSkin = skinName;
     }
 </script>
 
@@ -32,15 +42,15 @@
                     SkinDefinition,
                 ][]"
                 :key="tacoName"
-                @click="() => tacoClick(tacoName)"
+                @click="() => skinClick(tacoName)"
                 type="button"
                 class="flex w-full items-center space-x-1.5 bg-white bg-opacity-60 p-1 hover:bg-opacity-50"
             >
-                <span class="flex min-h-[74px] min-w-[96px] items-center justify-center">
+                <span class="flex min-h-[80px] min-w-[96px] items-center justify-center">
                     <img
                         :src="tacoProps.icon"
                         :alt="tacoName"
-                        class="h-full max-h-[74px] w-fit max-w-[96px] p-2"
+                        class="h-full max-h-[80px] w-fit max-w-[96px] p-2"
                     />
                 </span>
 
@@ -68,4 +78,10 @@
             </button>
         </div>
     </PanelSection>
+
+    <NotEnoughTacosForSkinModal
+        v-if="showNotEnoughTacosModal"
+        @close="showNotEnoughTacosModal = undefined"
+        :skin-name="showNotEnoughTacosModal"
+    />
 </template>
