@@ -13,6 +13,21 @@
     const mobileView = useTailwindBreakpoint('max-lg');
 
     watch(mobileView, () => (mobileTrayOpen.value = false));
+
+    watch(
+        () => mobileView.value && mobileTrayOpen.value,
+        async (open) => {
+            const appContainer = document.getElementById('app')!;
+
+            if (open) {
+                appContainer.classList.add('!overflow-hidden');
+                appContainer.classList.add('!min-h-[100vh]');
+            } else {
+                appContainer.classList.remove('!overflow-hidden');
+                appContainer.classList.remove('!h-[100vh]');
+            }
+        },
+    );
 </script>
 
 <template>
@@ -50,7 +65,7 @@
             <div
                 v-if="mobileView && mobileTrayOpen"
                 @click="mobileTrayOpen = false"
-                class="absolute right-0 top-0 z-40 h-[100vh] w-[100vw] bg-gray-700 opacity-50"
+                class="fixed right-0 top-0 z-40 h-[100vh] w-[100vw] bg-gray-700 opacity-50"
             />
         </Transition>
 
@@ -66,7 +81,7 @@
         >
             <div
                 v-if="mobileView && mobileTrayOpen"
-                class="absolute right-0 top-0 z-50 h-[100vh] w-[85vw] overflow-hidden rounded-l-lg bg-gradient-to-b from-purple-300 via-purple-600 to-violet-700"
+                class="fixed right-0 top-0 z-50 h-[100vh] w-[85vw] overflow-hidden rounded-l-lg bg-gradient-to-b from-purple-300 via-purple-600 to-violet-700"
             >
                 <button
                     @click="mobileTrayOpen = false"
