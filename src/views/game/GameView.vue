@@ -99,7 +99,7 @@
 
 <template>
     <div
-        class="flex h-full flex-col place-items-center max-lg:overflow-y-auto lg:grid lg:grid-cols-4"
+        class="flex h-full flex-col place-items-center lg:grid lg:grid-cols-4"
     >
         <div
             class="panel-section-group border-gray-200 max-lg:order-last max-lg:border-t lg:rounded-r-md"
