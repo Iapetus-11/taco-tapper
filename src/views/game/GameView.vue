@@ -75,7 +75,7 @@
         tacoAnimationState.value = true;
         setTimeout(
             () => (tacoAnimationState.value = false),
-            autoClicksPerSecond.value > 100 ? 10 : 100,
+            autoClicksPerSecond.value > 100 ? 10 : autoClicksPerSecond.value > 50 ? 25 : 100,
         );
     }
 
@@ -98,7 +98,7 @@
 </style>
 
 <template>
-    <div class="flex h-full flex-col place-items-center lg:grid lg:grid-cols-4">
+    <div class="flex h-full flex-col place-items-center max-lg:flex-grow lg:grid lg:grid-cols-4">
         <div
             class="panel-section-group border-gray-200 max-lg:order-last max-lg:border-t lg:rounded-r-md"
         >
@@ -159,7 +159,7 @@
             </button>
         </div>
 
-        <div class="panel-section-group lg:rounded-l-md">
+        <div class="panel-section-group mt-auto lg:rounded-l-md">
             <ToppingsPanel v-model:state="state" />
             <AutoClickersPanel v-model:state="state" />
         </div>
