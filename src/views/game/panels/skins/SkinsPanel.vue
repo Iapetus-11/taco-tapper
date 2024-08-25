@@ -14,7 +14,7 @@
 
     const showNotEnoughTacosModal = ref<keyof typeof SKINS>();
 
-    function skinClick(skinName: keyof typeof SKINS) {
+    function buySkin(skinName: keyof typeof SKINS) {
         const skin = SKINS[skinName];
 
         if (!props.state.ownedSkins.includes(skinName)) {
@@ -27,6 +27,7 @@
         }
 
         state.value.selectedSkin = skinName;
+        state.value.tacos -= skin.price;
     }
 </script>
 
@@ -42,7 +43,7 @@
                     SkinDefinition,
                 ][]"
                 :key="tacoName"
-                @click="() => skinClick(tacoName)"
+                @click="() => buySkin(tacoName)"
                 type="button"
                 class="flex w-full items-center space-x-1.5 bg-white bg-opacity-60 p-1 hover:bg-opacity-50"
             >

@@ -12,7 +12,7 @@
 
     const showNotEnoughTacosModal = ref<keyof typeof TOPPINGS>();
 
-    function toppingClick(toppingName: keyof typeof TOPPINGS) {
+    function buyTopping(toppingName: keyof typeof TOPPINGS) {
         const topping = TOPPINGS[toppingName];
 
         if (topping.price > state.value.tacos) {
@@ -37,7 +37,7 @@
                     ToppingDefinition,
                 ][]"
                 :key="toppingName"
-                @click="() => toppingClick(toppingName)"
+                @click="() => buyTopping(toppingName)"
                 type="button"
                 class="flex items-center space-x-1.5 bg-white bg-opacity-60 p-1 hover:bg-opacity-50"
             >

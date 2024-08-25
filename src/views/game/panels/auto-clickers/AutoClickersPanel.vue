@@ -12,7 +12,7 @@
 
     const showNotEnoughTacosModal = ref<keyof typeof AUTO_CLICKERS>();
 
-    function autoClickerClick(autoClickerName: keyof typeof AUTO_CLICKERS) {
+    function buyAutoClicker(autoClickerName: keyof typeof AUTO_CLICKERS) {
         const autoClicker = AUTO_CLICKERS[autoClickerName];
 
         if (autoClicker.price > state.value.tacos) {
@@ -22,6 +22,7 @@
 
         state.value.ownedAutoClickers[autoClickerName] =
             (state.value.ownedAutoClickers[autoClickerName] ?? 0) + 1;
+        state.value.tacos -= autoClicker.price;
     }
 </script>
 
@@ -37,7 +38,7 @@
                     AutoClickerDefinition,
                 ][]"
                 :key="autoClickerName"
-                @click="autoClickerClick(autoClickerName)"
+                @click="buyAutoClicker(autoClickerName)"
                 type="button"
                 class="flex items-center space-x-1.5 bg-white bg-opacity-60 p-1 hover:bg-opacity-50"
             >
