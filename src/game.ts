@@ -46,7 +46,7 @@ export const SKINS = {
         price: 16384,
         description: 'Men love me, fish fear me',
     },
-} as const;
+} as const satisfies Record<string, SkinDefinition>;
 
 export type ToppingDefinition = {
     price: number;
@@ -109,7 +109,7 @@ export const TOPPINGS = {
         multiplier: 16,
         icon: '/art/toppings/super_spicy_salsa.png',
     },
-} as const;
+} as const satisfies Record<string, ToppingDefinition>;
 export type OwnedToppings = Partial<Record<keyof typeof TOPPINGS, number>>;
 
 export type AutoClickerDefinition = {
@@ -143,5 +143,5 @@ export const AUTO_CLICKERS = {
         cps: 202,
         icon: '/art/tacos/goldy.png',
     },
-} as const;
+} as const satisfies Record<string, AutoClickerDefinition>;
 export type OwnedAutoClickers = Partial<Record<keyof typeof AUTO_CLICKERS, number>>;

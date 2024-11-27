@@ -4,16 +4,14 @@ import type { Ref, UnwrapRef } from 'vue';
 /**
  * Recursively adds missing keys to target from defaults
  */
-export function fillInDefaultsDeep(target: object, defaults: object) {
+export function fillInDefaultsDeep(target: any, defaults: any) {
     Object.entries(defaults).forEach(([key, value]) => {
         if (!(key in target)) {
-            // @ts-ignore
             target[key] = value;
         }
     });
 
     Object.entries(target).forEach(([key, value]) => {
-        // @ts-ignore
         const defaultValue = defaults[key];
 
         if (
@@ -31,8 +29,8 @@ export function fillInDefaultsDeep(target: object, defaults: object) {
  * A composable for persisting any JSON serializable data in localStorage between sessions
  */
 export function usePersistedRef<T>(key: string, initialValue: T): Ref<UnwrapRef<T>>;
-export function usePersistedRef<T>(key: string, defaultValue?: T): Ref<UnwrapRef<T> | null> {
-    const store = ref(defaultValue ?? null);
+export function usePersistedRef<T>(key: string, initialValue?: T): Ref<UnwrapRef<T> | null> {
+    const store = ref(initialValue ?? null) as Ref<UnwrapRef<T> | null>;
 
     watch(
         store,
@@ -65,8 +63,8 @@ export function usePersistedRef<T>(key: string, defaultValue?: T): Ref<UnwrapRef
         if (existingValue !== null) {
             store.value = JSON.parse(existingValue);
 
-            if (defaultValue !== undefined && defaultValue !== null) {
-                fillInDefaultsDeep(store.value!, defaultValue);
+            if (initialValue !== undefined && initialValue !== null) {
+                fillInDefaultsDeep(store.value!, initialValue);
             }
         }
     });
@@ -107,7 +105,7 @@ export const TAILWIND_MEDIA_QUERIES = {
     'max-lg': 'not all and (min-width: 1024px)',
     'max-xl': 'not all and (min-width: 1280px)',
     'max-2xl': 'not all and (min-width: 1536px)',
-} as const;
+} as const satisfies Record<string, string>;
 
 export type TailwindBreakpoint = keyof typeof TAILWIND_MEDIA_QUERIES;
 
@@ -136,7 +134,7 @@ export function useTailwindBreakpoint(breakpoint: TailwindBreakpoint): Ref<boole
     return matches;
 }
 
-export function useInterval(callback: () => void, timeout: number) {
+export function useInterval(callback: () => void, timeout: number): void {
     let interval: number | null = null;
 
     onMounted(() => (interval = setInterval(callback, timeout)));
