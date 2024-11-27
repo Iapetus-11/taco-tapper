@@ -23,9 +23,3 @@
         @apply rounded-md bg-purple-400;
     }
 }
-
-@layer components {
-    .desktop-panel {
-        @apply mt-1.5 h-full w-full overflow-y-auto bg-gray-300 bg-opacity-40 pb-24;
-    }
-}
