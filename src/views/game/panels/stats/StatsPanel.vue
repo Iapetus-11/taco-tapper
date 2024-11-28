@@ -64,6 +64,11 @@
                 value: props.autoClicksPerSecond.toLocaleString(),
                 description: 'The number of automatic clicks generated per second',
             },
+            {
+                name: 'Achievements Unlocked',
+                value: props.state.unlockedAchievements.length.toLocaleString(),
+                description: 'The number of unlocked/earned achievements',
+            },
         ],
     );
 </script>
