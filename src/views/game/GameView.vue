@@ -181,5 +181,6 @@
             achievementModalData.event.set();
             achievementModalData = undefined;
         "
+        :key="achievementModalData.achievementName"
     />
 </template>
