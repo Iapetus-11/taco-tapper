@@ -35,18 +35,15 @@
             </span>
         </button>
 
-        <Transition
-            enter-active-class="transition-all ease-in duration-400"
-            enter-from-class="max-h-[0] !py-0"
-            enter-to-class="max-h-[5rem] !py-5"
-            leave-active-class="transition-all ease-out duration-400"
-            leave-from-class="max-h-[5rem] !py-5"
-            leave-to-class="max-h-[0] !py-0"
-            mode="out-in"
+        <div
+            class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-[400ms] ease-out bg-violet-900"
+            :class="{ 'grid-rows-[1fr]': open }"
         >
-            <div v-if="open" class="w-full bg-violet-900 bg-opacity-80 p-5 text-lg text-gray-50">
-                <slot />
+            <div class="w-full overflow-hidden bg-opacity-80 text-lg text-gray-50">
+                <div class="p-5">
+                    <slot />
+                </div>
             </div>
-        </Transition>
+        </div>
     </div>
 </template>
