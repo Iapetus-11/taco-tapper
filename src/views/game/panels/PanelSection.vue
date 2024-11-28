@@ -91,7 +91,7 @@
                     <FontAwesomeIcon :icon="faChevronRight" size="lg" class="text-gray-500" />
                 </button>
 
-                <div class="h-full w-full min-w-[85vw] overflow-y-auto">
+                <div class="h-full w-full min-w-[85vw] overflow-y-auto pb-24">
                     <slot />
                 </div>
             </div>
