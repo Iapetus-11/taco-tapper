@@ -126,50 +126,16 @@ export function useInterval(callback: () => void, timeout: number): void {
 }
 
 /**
- * @param source The value that should be debounced when changed
- * @param delayMs The delay in milliseconds that should be waited when debouncing
- * @returns The debounced value of 'source'
- */
-export function debouncedRef<T>(
-    source: Ref<T>,
-    delayMs: number,
-    options?: WatchOptions<false> | undefined,
-): DeepReadonly<Ref<T>> {
-    const debouncedValue = ref(source.value) as Ref<T>;
-    let timeout: number | undefined;
-
-    watch(
-        source,
-        () => {
-            if (timeout) clearTimeout(timeout);
-
-            timeout = setTimeout(() => {
-                if (Array.isArray(source.value)) {
-                    debouncedValue.value = [...source.value] as T;
-                } else if (typeof source.value === 'object') {
-                    debouncedValue.value = { ...source.value } as T;
-                } else {
-                    debouncedValue.value = source.value;
-                }
-            }, delayMs);
-        },
-        options,
-    );
-
-    return readonly(debouncedValue);
-}
-
-/**
  * @param source The value that should be throttled when changed
  * @param delayMs The delay in milliseconds that should be waited when throttling
- * @returns The debounced value of 'source'
+ * @returns The throttled value of 'source'
  */
 export function throttledRef<T>(
     source: Ref<T>,
     delayMs: number,
     options?: WatchOptions<false> | undefined,
 ): DeepReadonly<Ref<T>> {
-    const debouncedValue = ref(source.value) as Ref<T>;
+    const throttledValue = ref(source.value) as Ref<T>;
     let timeout: number | undefined;
     let lastUpdate = performance.now();
 
@@ -182,11 +148,11 @@ export function throttledRef<T>(
 
             timeout = setTimeout(() => {
                 if (Array.isArray(source.value)) {
-                    debouncedValue.value = [...source.value] as T;
+                    throttledValue.value = [...source.value] as T;
                 } else if (typeof source.value === 'object') {
-                    debouncedValue.value = { ...source.value } as T;
+                    throttledValue.value = { ...source.value } as T;
                 } else {
-                    debouncedValue.value = source.value;
+                    throttledValue.value = source.value;
                 }
 
                 lastUpdate = performance.now();
@@ -195,7 +161,7 @@ export function throttledRef<T>(
         options,
     );
 
-    return readonly(debouncedValue);
+    return readonly(throttledValue);
 }
 
 export function asyncEvent(): { waiter: Promise<void>; set: () => void } {
