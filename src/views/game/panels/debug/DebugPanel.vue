@@ -14,7 +14,7 @@
     }
 
     function cheat() {
-        state.value.tacos += 1000; 
+        state.value.tacos += 1000;
         state.value.totalTacos += 1000;
     }
 </script>
@@ -34,9 +34,7 @@
                 Yeet Data
             </button>
 
-            <button type="button" @click="cheat()" class="w-full bg-green-500 p-1.5">
-                Add 1k
-            </button>
+            <button type="button" @click="cheat()" class="w-full bg-green-500 p-1.5">Add 1k</button>
         </div>
     </PanelSection>
 </template>

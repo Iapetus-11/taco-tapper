@@ -8,7 +8,7 @@
     import { onBeforeUnmount, onMounted, ref } from 'vue';
 
     const emit = defineEmits<{
-        close: [],
+        close: [];
     }>();
 
     const dialog = ref<HTMLDialogElement>();
@@ -41,7 +41,10 @@
 </script>
 
 <template>
-    <dialog ref="dialog" class="rounded-lg shadow-xl max-lg:!border-t-0 frosted-glass bg-purple-400/60">
+    <dialog
+        ref="dialog"
+        class="frosted-glass rounded-lg bg-purple-400/60 shadow-xl max-lg:!border-t-0"
+    >
         <div ref="innerContainer" v-bind="$attrs">
             <slot />
         </div>

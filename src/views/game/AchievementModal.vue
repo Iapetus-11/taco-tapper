@@ -9,18 +9,18 @@
 </script>
 
 <template>
-    <Modal class="flex flex-col p-6 min-w-[28rem]">
-        <img :src="achievement.icon" :alt="achievementName" class="w-56 mx-auto mb-8">
+    <Modal class="flex min-w-[28rem] flex-col p-6">
+        <img :src="achievement.icon" :alt="achievementName" class="mx-auto mb-8 w-56" />
 
-        <h2 class="text-gray-200 text-center text-xl">Achievement Unlocked:</h2>
-        <h1 class="text-gray-100 text-5xl text-center font-medium">{{ achievementName }}!</h1>
+        <h2 class="text-center text-xl text-gray-200">Achievement Unlocked:</h2>
+        <h1 class="text-center text-5xl font-medium text-gray-100">{{ achievementName }}!</h1>
 
-        <p class="text-gray-200 text-center italic mt-1">{{ achievement.description }}</p>
+        <p class="mt-1 text-center italic text-gray-200">{{ achievement.description }}</p>
 
         <button
             type="button"
             @click="$emit('close')"
-            class="w-full max-w-[16rem] self-center mt-6 rounded-lg border border-purple-400 p-1.5 transition-colors hover:bg-purple-300/50 text-gray-100"
+            class="mt-6 w-full max-w-[16rem] self-center rounded-lg border border-purple-400 p-1.5 text-gray-100 transition-colors hover:bg-purple-300/50"
         >
             Ok
         </button>

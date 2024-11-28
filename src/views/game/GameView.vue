@@ -1,5 +1,12 @@
 <script setup lang="ts">
-    import { type AchievementDefinition, ACHIEVEMENTS, AUTO_CLICKERS, type GameState, SKINS, TOPPINGS } from '@/game';
+    import {
+        type AchievementDefinition,
+        ACHIEVEMENTS,
+        AUTO_CLICKERS,
+        type GameState,
+        SKINS,
+        TOPPINGS,
+    } from '@/game';
     import { asyncEvent, throttledRef, useInterval, usePersistedRef } from '@/utils';
     import { AutoClickersPanel, DebugPanel, SkinsPanel, StatsPanel, ToppingsPanel } from './panels';
     import { computed, ref, watch } from 'vue';
@@ -88,7 +95,7 @@
     const achievementModalData = ref<{
         achievementName: string;
         achievement: AchievementDefinition;
-        event: { waiter: Promise<void>, set: () => void };
+        event: { waiter: Promise<void>; set: () => void };
     }>();
     watch(throttledRef(state, 2000, { deep: true }), async () => {
         if (achievementModalData.value) {
@@ -145,7 +152,7 @@
             <button
                 @click="userClick"
                 type="button"
-                class="rounded-full px-5 pb-7 touch-manipulation"
+                class="touch-manipulation rounded-full px-5 pb-7"
                 :class="tacoAnimationState ? 'scale-[97%]' : 'scale-100'"
             >
                 <span
@@ -170,6 +177,9 @@
     <AchievementModal
         v-if="achievementModalData"
         v-bind="achievementModalData"
-        @close="achievementModalData.event.set(); achievementModalData = undefined"
+        @close="
+            achievementModalData.event.set();
+            achievementModalData = undefined;
+        "
     />
 </template>

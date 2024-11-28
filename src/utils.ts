@@ -198,9 +198,9 @@ export function throttledRef<T>(
     return readonly(debouncedValue);
 }
 
-export function asyncEvent(): { waiter: Promise<void>, set: () => void } {
+export function asyncEvent(): { waiter: Promise<void>; set: () => void } {
     let resolve: () => void;
-    const promise = new Promise<void>(r => resolve = r);
+    const promise = new Promise<void>((r) => (resolve = r));
 
     return { waiter: promise, set: resolve! };
 }

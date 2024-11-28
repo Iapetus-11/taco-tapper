@@ -27,7 +27,7 @@
         <button
             type="button"
             @click="$emit('close')"
-            class="w-full rounded-lg border border-purple-400 p-1.5 transition-colors hover:bg-purple-300/50 text-gray-100"
+            class="w-full rounded-lg border border-purple-400 p-1.5 text-gray-100 transition-colors hover:bg-purple-300/50"
         >
             Ok
         </button>

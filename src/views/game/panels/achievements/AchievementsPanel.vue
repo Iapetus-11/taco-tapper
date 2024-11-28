@@ -7,7 +7,9 @@
 
     const props = defineProps<{ state: GameState }>();
 
-    const unlockedAchievements = computed(() => new Set(props.state.unlockedAchievements) as Set<string>);
+    const unlockedAchievements = computed(
+        () => new Set(props.state.unlockedAchievements) as Set<string>,
+    );
 </script>
 
 <template>
@@ -15,7 +17,7 @@
         <div
             v-for="[achievementName, achievement] in Object.entries(ACHIEVEMENTS)"
             :key="achievementName"
-            class="flex items-center space-x-1.5 bg-white p-1 bg-opacity-60"
+            class="flex items-center space-x-1.5 bg-white bg-opacity-60 p-1"
         >
             <span
                 class="flex min-h-[56px] min-w-[56px] items-center justify-center"
@@ -34,7 +36,12 @@
                     :class="{ 'text-opacity-50': !unlockedAchievements.has(achievementName) }"
                 >
                     <span>{{ achievementName }}</span>
-                    <FontAwesomeIcon v-if="unlockedAchievements.has(achievementName)" :icon="faCheck" size="lg" class="-mt-0.5 ml-1.5 text-purple-600" />
+                    <FontAwesomeIcon
+                        v-if="unlockedAchievements.has(achievementName)"
+                        :icon="faCheck"
+                        size="lg"
+                        class="-mt-0.5 ml-1.5 text-purple-600"
+                    />
                 </span>
                 <p
                     class="text-xs text-gray-500"
