@@ -2,12 +2,17 @@ export type GameState = {
     clicks: number;
     userClicks: number;
     fractionClicks: number;
+
     tacos: number;
     totalTacos: number;
+
     ownedToppings: OwnedToppings;
     ownedAutoClickers: OwnedAutoClickers;
+
     ownedSkins: (keyof typeof SKINS)[];
     selectedSkin: keyof typeof SKINS;
+
+    unlockedAchievements: (keyof typeof ACHIEVEMENTS)[];
 };
 
 export type SkinDefinition = {
@@ -145,3 +150,117 @@ export const AUTO_CLICKERS = {
     },
 } as const satisfies Record<string, AutoClickerDefinition>;
 export type OwnedAutoClickers = Partial<Record<keyof typeof AUTO_CLICKERS, number>>;
+
+export type AchievementDefinition = {
+    description: string;
+    icon: string;
+    condition: (state: GameState) => boolean;
+};
+export const ACHIEVEMENTS = {
+    'Taco Enjoyer': {
+        description: 'Earn a total of 256 tacos',
+        icon: '/art/tacos/goldy.png',
+        condition(state) {
+            return state.totalTacos >= 256;
+        },
+    },
+    'Taco Muncher': {
+        description: 'Earn a total of 1024 tacos',
+        icon: '/art/tacos/goldy.png',
+        condition(state) {
+            return state.totalTacos >= 1024;
+        },
+    },
+    'Taco Devourer': {
+        description: 'Earn a total of 8192 tacos',
+        icon: '/art/tacos/goldy.png',
+        condition(state) {
+            return state.totalTacos >= 8192;
+        },
+    },
+    'Taco Assassin': {
+        description: 'Earn a total of 131072 tacos',
+        icon: '/art/tacos/goldy.png',
+        condition(state) {
+            return state.totalTacos >= 131072;
+        },
+    },
+    'Taco Destroyer': {
+        description: 'Earn a total of 4194304 tacos',
+        icon: '/art/tacos/goldy.png',
+        condition(state) {
+            return state.totalTacos >= 4194304;
+        },
+    },
+    'Taco Annihilator': {
+        description: 'Earn a total of 268435456 tacos',
+        icon: '/art/tacos/goldy.png',
+        condition(state) {
+            return state.totalTacos >= 268435456;
+        },
+    },
+
+    'Big Spender I': {
+        description: 'Spend 8192 tacos on skins, toppings, or automation',
+        icon: '/art/tacos/goldy.png',
+        condition(state) {
+            return Math.floor(state.totalTacos - state.tacos) >= 8192;
+        },
+    },
+    'Big Spender II': {
+        description: 'Spend 262144 tacos on skins, toppings, or automation',
+        icon: '/art/tacos/goldy.png',
+        condition(state) {
+            return Math.floor(state.totalTacos - state.tacos) >= 262144;
+        },
+    },
+    'Big Spender III': {
+        description: 'Spend 16777216 tacos on skins, toppings, or automation',
+        icon: '/art/tacos/goldy.png',
+        condition(state) {
+            return Math.floor(state.totalTacos - state.tacos) >= 16777216;
+        },
+    },
+    'Big Spender IV': {
+        description: 'Spend 1073741824 tacos on skins, toppings, or automation',
+        icon: '/art/tacos/goldy.png',
+        condition(state) {
+            return Math.floor(state.totalTacos - state.tacos) >= 1073741824;
+        },
+    },
+
+    'Scrooge McDuck': {
+        description: 'Hoard 16777216 tacos or more at once',
+        icon: '/art/tacos/goldy.png',
+        condition(state) {
+            return state.tacos > 16777216;
+        },
+    },
+
+    'Costume Party': {
+        description: 'Unlock 3 or more skins',
+        icon: '/art/tacos/goldy.png',
+        condition(state) {
+            return state.ownedSkins.length >= 3;
+        },
+    },
+
+    'Gifted Student': {
+        description: 'Unlock 3 or more achievements',
+        icon: '/art/tacos/goldy.png',
+        condition(state) {
+            type PartialGameStateToAvoidCircularTypes = { unlockedAchievements: string[] };
+            return (state as PartialGameStateToAvoidCircularTypes).unlockedAchievements.length >= 3;
+        },
+    },
+    'Achievement Achievement': {
+        description: 'Unlock 12 or more achievements',
+        icon: '/art/tacos/goldy.png',
+        condition(state) {
+            type PartialGameStateToAvoidCircularTypes = { unlockedAchievements: string[] };
+            return (
+                (state as PartialGameStateToAvoidCircularTypes).unlockedAchievements.length >= 12
+            );
+        },
+    },
+} as const satisfies Record<string, AchievementDefinition>;

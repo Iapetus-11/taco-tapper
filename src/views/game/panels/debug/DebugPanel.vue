@@ -1,5 +1,6 @@
 <script setup lang="ts">
     import type { GameState } from '@/game';
+    import PanelSection from '../PanelSection.vue';
 
     defineProps<{
         tacoAnimationState: boolean;

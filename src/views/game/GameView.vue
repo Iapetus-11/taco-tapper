@@ -1,25 +1,25 @@
 <script setup lang="ts">
-    import { AUTO_CLICKERS, type GameState, SKINS, TOPPINGS } from '@/game';
-    import {
-        AutoClickersPanel,
-        PanelSection,
-        SkinsPanel,
-        StatsPanel,
-        ToppingsPanel,
-    } from './panels';
-    import { computed, ref } from 'vue';
-    import { useInterval, usePersistedRef } from '@/utils';
+    import { ACHIEVEMENTS, AUTO_CLICKERS, type GameState, SKINS, TOPPINGS } from '@/game';
+    import { AutoClickersPanel, DebugPanel, SkinsPanel, StatsPanel, ToppingsPanel } from './panels';
+    import { computed, ref, watch } from 'vue';
+    import { throttledRef, useInterval, usePersistedRef } from '@/utils';
+    import AchievementsPanel from './panels/achievements/AchievementsPanel.vue';
 
     const state = usePersistedRef<GameState>('game:state', {
         clicks: 0,
         userClicks: 0,
         fractionClicks: 0,
+
         tacos: 0,
         totalTacos: 0,
+
         ownedToppings: {},
         ownedAutoClickers: {},
+
         ownedSkins: ['The Original'],
         selectedSkin: 'The Original',
+
+        unlockedAchievements: [],
     });
 
     const tacoAnimationState = ref(false);
@@ -84,10 +84,18 @@
         state.value.userClicks += 1;
     }
 
-    function debugYeetData() {
-        window.localStorage.removeItem('game:state');
-        window.location.reload();
-    }
+    watch(throttledRef(state, 2000, { deep: true }), () => {
+        const unlockedAchievements: Set<string> = new Set(state.value.unlockedAchievements);
+        const lockedAchievements = Object.entries(ACHIEVEMENTS).filter(
+            ([name]) => !unlockedAchievements.has(name),
+        );
+
+        for (const [achievementName, achievement] of lockedAchievements) {
+            if (achievement.condition(state.value)) {
+                state.value.unlockedAchievements.push(achievementName as keyof typeof ACHIEVEMENTS);
+            }
+        }
+    });
 </script>
 
 <style scoped>
@@ -109,28 +117,8 @@
                 :variety-bonus="varietyBonus"
                 :auto-clicks-per-second="autoClicksPerSecond"
             />
-            <PanelSection title="Debug">
-                <div class="flex flex-col space-y-4 bg-white bg-opacity-50">
-                    <p>{{ tacoAnimationState }}</p>
-
-                    <code class="whitespace-pre">
-                        Game State: <span class="select-text">{{ state }}</span>
-                    </code>
-                </div>
-
-                <div class="flex gap-2">
-                    <button type="button" @click="debugYeetData()" class="w-full bg-red-500 p-1.5">
-                        Yeet Data
-                    </button>
-                    <button
-                        type="button"
-                        @click="state.tacos += 1000"
-                        class="w-full bg-green-500 p-1.5"
-                    >
-                        Add 1k
-                    </button>
-                </div>
-            </PanelSection>
+            <AchievementsPanel :state="state" />
+            <DebugPanel v-model:state="state" :taco-animation-state="tacoAnimationState" />
         </div>
 
         <div class="mt-10 flex flex-col max-lg:my-auto max-lg:pt-[7.5vw] lg:col-span-2 lg:-mt-32">

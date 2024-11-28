@@ -1,5 +1,5 @@
-import { onBeforeUnmount, onMounted, ref, watch } from 'vue';
-import type { Ref, UnwrapRef } from 'vue';
+import type { DeepReadonly, Ref, UnwrapRef, WatchOptions } from 'vue';
+import { onBeforeUnmount, onMounted, readonly, ref, watch } from 'vue';
 
 /**
  * Recursively adds missing keys to target from defaults
@@ -123,4 +123,77 @@ export function useInterval(callback: () => void, timeout: number): void {
 
     onMounted(() => (interval = setInterval(callback, timeout)));
     onBeforeUnmount(() => clearTimeout(interval!));
+}
+
+/**
+ * @param source The value that should be debounced when changed
+ * @param delayMs The delay in milliseconds that should be waited when debouncing
+ * @returns The debounced value of 'source'
+ */
+export function debouncedRef<T>(
+    source: Ref<T>,
+    delayMs: number,
+    options?: WatchOptions<false> | undefined,
+): DeepReadonly<Ref<T>> {
+    const debouncedValue = ref(source.value) as Ref<T>;
+    let timeout: number | undefined;
+
+    watch(
+        source,
+        () => {
+            if (timeout) clearTimeout(timeout);
+
+            timeout = setTimeout(() => {
+                if (Array.isArray(source.value)) {
+                    debouncedValue.value = [...source.value] as T;
+                } else if (typeof source.value === 'object') {
+                    debouncedValue.value = { ...source.value } as T;
+                } else {
+                    debouncedValue.value = source.value;
+                }
+            }, delayMs);
+        },
+        options,
+    );
+
+    return readonly(debouncedValue);
+}
+
+/**
+ * @param source The value that should be throttled when changed
+ * @param delayMs The delay in milliseconds that should be waited when throttling
+ * @returns The debounced value of 'source'
+ */
+export function throttledRef<T>(
+    source: Ref<T>,
+    delayMs: number,
+    options?: WatchOptions<false> | undefined,
+): DeepReadonly<Ref<T>> {
+    const debouncedValue = ref(source.value) as Ref<T>;
+    let timeout: number | undefined;
+    let lastUpdate = performance.now();
+
+    watch(
+        source,
+        () => {
+            const delta = performance.now() - lastUpdate;
+
+            if (delta < delayMs && timeout) clearTimeout(timeout);
+
+            timeout = setTimeout(() => {
+                if (Array.isArray(source.value)) {
+                    debouncedValue.value = [...source.value] as T;
+                } else if (typeof source.value === 'object') {
+                    debouncedValue.value = { ...source.value } as T;
+                } else {
+                    debouncedValue.value = source.value;
+                }
+
+                lastUpdate = performance.now();
+            }, delayMs - delta);
+        },
+        options,
+    );
+
+    return readonly(debouncedValue);
 }
