@@ -131,7 +131,7 @@
             <button
                 @click="userClick"
                 type="button"
-                class="rounded-full px-5 pb-7"
+                class="rounded-full px-5 pb-7 touch-manipulation"
                 :class="tacoAnimationState ? 'scale-[97%]' : 'scale-100'"
             >
                 <span
