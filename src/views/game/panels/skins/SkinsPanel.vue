@@ -10,9 +10,17 @@
 
     const showNotEnoughTacosModal = ref<keyof typeof SKINS>();
 
-    function buySkin(skinName: keyof typeof SKINS) {
+    function selectSkin(skinName: keyof typeof SKINS) {
         const skin = SKINS[skinName];
 
+        if (state.value.ownedSkins.includes(skinName)) {
+            state.value.selectedSkin = skinName;
+        } else {
+            buySkin(skinName, skin);
+        }
+    }
+
+    function buySkin(skinName: keyof typeof SKINS, skin: SkinDefinition) {
         if (!state.value.ownedSkins.includes(skinName)) {
             if (skin.price > state.value.tacos) {
                 showNotEnoughTacosModal.value = skinName;
@@ -39,7 +47,7 @@
                     SkinDefinition,
                 ][]"
                 :key="tacoName"
-                @click="() => buySkin(tacoName)"
+                @click="() => selectSkin(tacoName)"
                 type="button"
                 class="flex w-full items-center space-x-1.5 bg-white bg-opacity-60 p-1 hover:bg-opacity-50"
             >
