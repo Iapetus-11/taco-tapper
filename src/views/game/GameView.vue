@@ -1,8 +1,9 @@
 <script setup lang="ts">
-    import { ACHIEVEMENTS, AUTO_CLICKERS, type GameState, SKINS, TOPPINGS } from '@/game';
+    import { type AchievementDefinition, ACHIEVEMENTS, AUTO_CLICKERS, type GameState, SKINS, TOPPINGS } from '@/game';
+    import { asyncEvent, throttledRef, useInterval, usePersistedRef } from '@/utils';
     import { AutoClickersPanel, DebugPanel, SkinsPanel, StatsPanel, ToppingsPanel } from './panels';
     import { computed, ref, watch } from 'vue';
-    import { throttledRef, useInterval, usePersistedRef } from '@/utils';
+    import AchievementModal from './AchievementModal.vue';
     import AchievementsPanel from './panels/achievements/AchievementsPanel.vue';
 
     const state = usePersistedRef<GameState>('game:state', {
@@ -84,7 +85,16 @@
         state.value.userClicks += 1;
     }
 
-    watch(throttledRef(state, 2000, { deep: true }), () => {
+    const achievementModalData = ref<{
+        achievementName: string;
+        achievement: AchievementDefinition;
+        event: { waiter: Promise<void>, set: () => void };
+    }>();
+    watch(throttledRef(state, 2000, { deep: true }), async () => {
+        if (achievementModalData.value) {
+            return;
+        }
+
         const unlockedAchievements: Set<string> = new Set(state.value.unlockedAchievements);
         const lockedAchievements = Object.entries(ACHIEVEMENTS).filter(
             ([name]) => !unlockedAchievements.has(name),
@@ -93,6 +103,10 @@
         for (const [achievementName, achievement] of lockedAchievements) {
             if (achievement.condition(state.value)) {
                 state.value.unlockedAchievements.push(achievementName as keyof typeof ACHIEVEMENTS);
+
+                const event = asyncEvent();
+                achievementModalData.value = { achievementName, achievement, event };
+                await event.waiter;
             }
         }
     });
@@ -152,4 +166,10 @@
             <AutoClickersPanel v-model:state="state" />
         </div>
     </div>
+
+    <AchievementModal
+        v-if="achievementModalData"
+        v-bind="achievementModalData"
+        @close="achievementModalData.event.set(); achievementModalData = undefined"
+    />
 </template>
