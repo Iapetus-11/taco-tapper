@@ -11,25 +11,33 @@
         close: [];
     }>();
 
+    const shownTime = performance.now();
+
+    function close() {
+        // Prevent modal closing for first second, in case they're spamming
+        if (performance.now() - shownTime >= 1000) {
+            emit('close');
+        }
+    }
+
     const dialog = ref<HTMLDialogElement>();
     const innerContainer = ref<HTMLElement>();
 
     async function onWindowClick(ev: MouseEvent) {
         if (ev.target instanceof HTMLElement && !innerContainer.value!.contains(ev.target)) {
-            emit('close');
+            close();
         }
     }
 
     function onWindowKeyPress(ev: KeyboardEvent) {
         if (ev.key === 'Escape') {
-            emit('close');
+            close();
         }
     }
 
     onMounted(async () => {
         dialog.value!.showModal();
 
-        await new Promise((resolve) => setTimeout(resolve, 200));
         window.addEventListener('click', onWindowClick);
         window.addEventListener('keydown', onWindowKeyPress);
     });
