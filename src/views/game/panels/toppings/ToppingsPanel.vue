@@ -3,12 +3,8 @@
     import NotEnoughTacosForToppingModal from './NotEnoughTacosForToppingModal.vue';
     import PanelSection from '@/views/game/panels/PanelSection.vue';
     import { ref } from 'vue';
-    import { useVModelRef } from '@/utils';
 
-    const props = defineProps<{ state: GameState }>();
-    const emit = defineEmits<{ 'update:state': [state: GameState] }>();
-
-    const state = useVModelRef('state', { props, emit });
+    const state = defineModel<GameState>('state', { required: true });
 
     const showNotEnoughTacosModal = ref<keyof typeof TOPPINGS>();
 

@@ -5,19 +5,15 @@
     import NotEnoughTacosForSkinModal from '@/views/game/panels/skins/NotEnoughTacosForSkinModal.vue';
     import PanelSection from '@/views/game/panels/PanelSection.vue';
     import { ref } from 'vue';
-    import { useVModelRef } from '@/utils';
 
-    const props = defineProps<{ state: GameState }>();
-    const emit = defineEmits<{ 'update:state': [state: GameState] }>();
-
-    const state = useVModelRef('state', { props, emit });
+    const state = defineModel<GameState>('state', { required: true });
 
     const showNotEnoughTacosModal = ref<keyof typeof SKINS>();
 
     function buySkin(skinName: keyof typeof SKINS) {
         const skin = SKINS[skinName];
 
-        if (!props.state.ownedSkins.includes(skinName)) {
+        if (!state.value.ownedSkins.includes(skinName)) {
             if (skin.price > state.value.tacos) {
                 showNotEnoughTacosModal.value = skinName;
                 return;

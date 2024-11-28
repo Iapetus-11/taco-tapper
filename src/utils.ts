@@ -1,4 +1,4 @@
-import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+import { onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import type { Ref, UnwrapRef } from 'vue';
 
 /**
@@ -72,22 +72,6 @@ export function usePersistedRef<T>(key: string, initialValue?: T): Ref<UnwrapRef
     onBeforeUnmount(() => window.removeEventListener('storage', onStorage));
 
     return store;
-}
-
-/**
- * Shortcut for creating a settable computed property for v-model
- * @param propName The name of the prop
- * @param context The props object and emit function
- */
-export function useVModelRef<
-    Props extends Record<string, any>,
-    PropName extends Extract<keyof Props, string>,
-    Emit extends (evt: `update:${PropName}`, value: Props[PropName]) => void,
->(propName: PropName, { props, emit }: { props: Props; emit: Emit }): Ref<Props[PropName]> {
-    return computed({
-        get: () => props[propName],
-        set: (value) => emit(`update:${propName}`, value),
-    });
 }
 
 export function average(values: number[]) {
