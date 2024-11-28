@@ -12,6 +12,11 @@
         window.localStorage.removeItem('game:state');
         window.location.reload();
     }
+
+    function cheat() {
+        state.value.tacos += 1000; 
+        state.value.totalTacos += 1000;
+    }
 </script>
 
 <template>
@@ -29,7 +34,7 @@
                 Yeet Data
             </button>
 
-            <button type="button" @click="state.tacos += 1000" class="w-full bg-green-500 p-1.5">
+            <button type="button" @click="cheat()" class="w-full bg-green-500 p-1.5">
                 Add 1k
             </button>
         </div>
