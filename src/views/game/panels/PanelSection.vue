@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import { ref, watch } from 'vue';
+    import { onBeforeMount, onUnmounted, ref, watch } from 'vue';
     import { faChevronRight } from '@fortawesome/pro-solid-svg-icons';
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
     import { useTailwindBreakpoint } from '@/utils';
@@ -28,6 +28,20 @@
             }
         },
     );
+
+    function onWindowKeyPress(ev: KeyboardEvent) {
+        if (ev.key === 'Escape') {
+            mobileTrayOpen.value = false;
+        }
+    }
+
+    onBeforeMount(() => {
+        window.addEventListener('keydown', onWindowKeyPress);
+    });
+
+    onUnmounted(() => {
+        window.removeEventListener('keydown', onWindowKeyPress);
+    });
 </script>
 
 <template>
