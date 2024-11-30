@@ -92,7 +92,7 @@
 
         const width = randomRange(14.0, 32.0);
         const xDisplacement = randomRange(-150.0, 150.0);
-        const yDisplacement = randomRange(-10.0, -20.0);
+        const yDisplacement = randomRange(-10.0, -50.0);
 
         const img = document.createElement('img');
 
