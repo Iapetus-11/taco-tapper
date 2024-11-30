@@ -45,6 +45,10 @@
             .reduce((sum, cur) => sum + cur);
     });
     useInterval(async () => {
+        if (document.hidden) {
+            return;
+        }
+
         let wholeClicks = Math.floor(autoClicksPerSecond.value);
         state.value.fractionClicks += autoClicksPerSecond.value - wholeClicks;
 
