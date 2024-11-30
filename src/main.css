@@ -34,6 +34,32 @@
             inset 0px 0px 10px 5px rgba(255, 255, 255, 0.025),
             inset 0px 0px 40px 5px rgba(255, 255, 255, 0.025);
     }
+
+    @keyframes taco-confetti {
+        0% {
+            opacity: 0%;
+            scale: 0%;
+            margin-top: 0px;
+        }
+        20% {
+            opacity: 100%;
+            scale: 100%;
+            margin-top: 0px;
+        }
+        75% {
+            opacity: 50%;
+        }
+        100% {
+            opacity: 0%;
+            scale: 105%;
+            margin-top: -200px;
+        }
+    }
+
+    .taco-confetti {
+        @apply fixed pointer-events-none;
+        animation: taco-confetti ease-out 750ms both;
+    }
 }
 
 @layer components {

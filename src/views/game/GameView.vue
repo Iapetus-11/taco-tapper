@@ -7,7 +7,7 @@
         SKINS,
         TOPPINGS,
     } from '@/game';
-    import { asyncEvent, throttledRef, useInterval, usePersistedRef } from '@/utils';
+    import { asyncEvent, randomRange, throttledRef, useInterval, usePersistedRef } from '@/utils';
     import { AutoClickersPanel, DebugPanel, SkinsPanel, StatsPanel, ToppingsPanel } from './panels';
     import { computed, ref, watch } from 'vue';
     import AchievementModal from './AchievementModal.vue';
@@ -73,6 +73,41 @@
         return toppingMultiplier + varietyBonus.value;
     });
 
+    const tacoImageElement = ref<HTMLElement>();
+    const tacoImageElementCenter = computed(() => {
+        const rect = tacoImageElement.value!.getBoundingClientRect();
+
+        const x = rect.left + rect.width / 2.0;
+        const y = rect.top + rect.height / 2.0;
+
+        return { x, y };
+    });
+
+    function spawnTacoConfetti() {
+        const { x, y } = tacoImageElementCenter.value;
+
+        const width = randomRange(14.0, 32.0);
+        const xDisplacement = randomRange(-150.0, 150.0);
+        const yDisplacement = randomRange(-10.0, -20.0);
+
+        const img = document.createElement('img');
+
+        img.src = SKINS[state.value.selectedSkin].icon;
+        
+        img.style.left = `${x - (width / 2.0) + xDisplacement}px`;
+        img.style.top = `${y - 4 - yDisplacement}px`;
+        img.style.width = `${width}px`
+
+        img.classList.add('taco-confetti');
+
+        const imgNode = document.body.insertAdjacentElement("beforeend", img)!;
+
+        setTimeout(() => {
+            img.remove();
+            document.body.removeChild(imgNode);
+        }, 751);
+    }
+
     function click() {
         const earnedTacos = 1 + clickMultiplier.value;
         state.value.tacos += earnedTacos;
@@ -85,6 +120,8 @@
             () => (tacoAnimationState.value = false),
             autoClicksPerSecond.value > 100 ? 10 : autoClicksPerSecond.value > 50 ? 25 : 100,
         );
+
+        spawnTacoConfetti();
     }
 
     function userClick() {
@@ -159,6 +196,7 @@
                     class="flex h-full max-h-[325px] w-full max-w-[448px] items-center justify-center"
                 >
                     <img
+                        ref="tacoImageElement"
                         :src="SKINS[state.selectedSkin].icon"
                         :alt="`${state.selectedSkin} Taco`"
                         draggable="false"

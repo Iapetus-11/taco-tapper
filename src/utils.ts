@@ -170,3 +170,7 @@ export function asyncEvent(): { waiter: Promise<void>; set: () => void } {
 
     return { waiter: promise, set: resolve! };
 }
+
+export function randomRange(from: number, to: number) {
+    return Math.random() * (to - from) + from
+}
