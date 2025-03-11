@@ -1,4 +1,4 @@
-# 🌮 Taco Tapper
+# [🌮 Taco Tapper](tacos.iapetus11.me/)
 
 _A cookie clicker clone with tacos instead, because they're tastier_
 
