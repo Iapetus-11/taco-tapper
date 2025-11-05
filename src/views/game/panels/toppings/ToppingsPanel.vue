@@ -26,7 +26,7 @@
         title="Toppings"
         description="Increase the number of tacos earned per click by the multiplier. Maintain a variety of toppings to earn a slight bonus."
     >
-        <div class="flex flex-col divide-y-2 divide-purple-300 divide-opacity-75">
+        <div class="flex flex-col divide-y-2 divide-purple-300/75">
             <button
                 v-for="[toppingName, toppingProps] in Object.entries(TOPPINGS) as [
                     keyof typeof TOPPINGS,
@@ -35,7 +35,7 @@
                 :key="toppingName"
                 @click="() => buyTopping(toppingName)"
                 type="button"
-                class="flex items-center space-x-1.5 bg-white bg-opacity-60 p-1 hover:bg-opacity-50"
+                class="flex items-center space-x-1.5 bg-white/60 p-1 hover:bg-white/50"
             >
                 <span class="flex min-h-[76px] min-w-[76px] items-center justify-center">
                     <img

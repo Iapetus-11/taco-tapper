@@ -1,11 +1,9 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
 @layer base {
     * {
         -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-        @apply select-none outline-none;
+        @apply outline-hidden select-none;
 
         /* Scrollbar */
         scrollbar-color: rgb(147 51 234) rgb(192 132 252);
@@ -23,47 +21,52 @@
         @apply rounded-md bg-purple-400;
     }
 
-    .frosted-glass {
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-
-        box-shadow:
-            inset -0.75px -0.5px rgba(255, 255, 255, 0.1),
-            inset + 0.75px +0.5px rgba(255, 255, 255, 0.025),
-            3px 2px 10px rgba(0, 0, 0, 0.25),
-            inset 0px 0px 10px 5px rgba(255, 255, 255, 0.025),
-            inset 0px 0px 40px 5px rgba(255, 255, 255, 0.025);
-    }
-
-    @keyframes taco-confetti {
-        0% {
-            opacity: 0%;
-            scale: 0%;
-            margin-top: 0px;
-        }
-        20% {
-            opacity: 100%;
-            scale: 100%;
-            margin-top: 0px;
-        }
-        75% {
-            opacity: 50%;
-        }
-        100% {
-            opacity: 0%;
-            scale: 105%;
-            margin-top: -200px;
-        }
-    }
-
-    .taco-confetti {
-        @apply fixed pointer-events-none;
-        animation: taco-confetti ease-out 750ms both;
+    button:not(:disabled),
+    [role='button']:not(:disabled) {
+        cursor: pointer;
     }
 }
 
 @layer components {
     .text-link {
-        @apply text-pink-300 hover:underline;
+        @apply text-sky-100 hover:underline;
     }
+}
+
+@utility frosted-glass {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    box-shadow:
+        inset -0.75px -0.5px rgba(255, 255, 255, 0.1),
+        inset + 0.75px +0.5px rgba(255, 255, 255, 0.025),
+        3px 2px 10px rgba(0, 0, 0, 0.25),
+        inset 0px 0px 10px 5px rgba(255, 255, 255, 0.025),
+        inset 0px 0px 40px 5px rgba(255, 255, 255, 0.025);
+}
+
+@keyframes taco-confetti {
+    0% {
+        opacity: 0%;
+        scale: 0%;
+        margin-top: 0px;
+    }
+    20% {
+        opacity: 100%;
+        scale: 100%;
+        margin-top: 0px;
+    }
+    75% {
+        opacity: 50%;
+    }
+    100% {
+        opacity: 0%;
+        scale: 105%;
+        margin-top: -200px;
+    }
+}
+
+@utility taco-confetti {
+    @apply pointer-events-none fixed;
+    animation: taco-confetti ease-out 750ms both;
 }

@@ -49,7 +49,7 @@
         <div
             @click="mobileTrayOpen = true"
             :role="mobileView ? 'button' : 'none'"
-            class="flex items-center p-4 max-lg:hover:bg-gray-700 max-lg:hover:bg-opacity-10"
+            class="flex items-center p-4 max-lg:hover:bg-gray-700/10"
         >
             <div class="flex w-full flex-col">
                 <h2 class="text-xl font-semibold text-white">{{ title }}</h2>
@@ -69,17 +69,17 @@
         <!-- Mobile view tray backdrop -->
         <Transition
             enter-active-class="transition-all duration-150"
-            enter-from-class="!opacity-0"
-            enter-to-class="!opacity-50"
+            enter-from-class="opacity-0!"
+            enter-to-class="opacity-50!"
             leave-active-class="transition-all duration-150"
-            leave-from-class="!opacity-50"
-            leave-to-class="!opacity-0"
+            leave-from-class="opacity-50!"
+            leave-to-class="opacity-0!"
             mode="out-in"
         >
             <div
                 v-if="mobileView && mobileTrayOpen"
                 @click="mobileTrayOpen = false"
-                class="fixed right-0 top-0 z-40 h-[100vh] w-[100vw] bg-gray-700 opacity-50"
+                class="fixed top-0 right-0 z-40 h-screen w-screen bg-gray-700 opacity-50"
             />
         </Transition>
 
@@ -95,12 +95,12 @@
         >
             <div
                 v-if="mobileView && mobileTrayOpen"
-                class="fixed right-0 top-0 z-50 h-[100vh] w-[85vw] overflow-hidden rounded-l-lg bg-gradient-to-b from-purple-300 via-purple-600 to-violet-700"
+                class="fixed top-0 right-0 z-50 h-screen w-[85vw] overflow-hidden rounded-l-lg bg-linear-to-b from-purple-300 via-purple-600 to-violet-700"
             >
                 <button
                     @click="mobileTrayOpen = false"
                     type="button"
-                    class="absolute left-0 top-1/2 -translate-y-1/2 rounded-r-full bg-gray-300 py-2 pl-1 pr-2 opacity-75 shadow-sm"
+                    class="absolute top-1/2 left-0 -translate-y-1/2 rounded-r-full bg-gray-300 py-2 pr-2 pl-1 opacity-75 shadow-sm"
                 >
                     <FontAwesomeIcon :icon="faChevronRight" size="lg" class="text-gray-500" />
                 </button>

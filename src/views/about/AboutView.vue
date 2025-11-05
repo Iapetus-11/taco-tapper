@@ -30,13 +30,15 @@
 
             <p class="text-gray-100 sm:text-lg">
                 My girlfriend,
-                <a href="https://art.devilsquares.me/" target="_blank" class="text-link">Devilsquares</a>
-                 and I
-                <a href= "https://iapetus11.me" target="_blank" class="text-link">(Iapetus11)</a>
-                made this! We were bored, trying to brainstorm a project to work on for fun, and we came up
-                with Spring Roll Clicker... Obviously that is not Taco Tapper, we figured since we both love
-                tacos and there's more variety it would make a better game. We both hope the rare few who visit have
-                lots of fun tapping and eating tacos :)
+                <a href="https://art.devilsquares.me/" target="_blank" class="text-link"
+                    >Devilsquares</a
+                >
+                and I
+                <a href="https://iapetus11.me" target="_blank" class="text-link">(Iapetus11)</a>
+                made this! We were bored, trying to brainstorm a project to work on for fun, and we
+                came up with Spring Roll Clicker... Obviously that is not Taco Tapper, we figured
+                since we both love tacos and there's more variety it would make a better game. We
+                both hope the rare few who visit have lots of fun tapping and eating tacos :)
             </p>
         </div>
 

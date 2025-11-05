@@ -4,7 +4,10 @@ import { onBeforeUnmount, onMounted, readonly, ref, watch } from 'vue';
 /**
  * Recursively adds missing keys to target from defaults
  */
-export function fillInDefaultsDeep(target: any, defaults: any) {
+export function fillInDefaultsDeep(
+    target: Record<string | number | symbol, unknown>,
+    defaults: Record<string | number | symbol, unknown>,
+) {
     Object.entries(defaults).forEach(([key, value]) => {
         if (!(key in target)) {
             target[key] = value;
@@ -20,7 +23,10 @@ export function fillInDefaultsDeep(target: any, defaults: any) {
             typeof defaultValue === 'object' &&
             defaultValue !== null
         ) {
-            fillInDefaultsDeep(value, defaultValue);
+            fillInDefaultsDeep(
+                value as Record<string | number | symbol, unknown>,
+                defaultValue as Record<string | number | symbol, unknown>,
+            );
         }
     });
 }
@@ -29,7 +35,10 @@ export function fillInDefaultsDeep(target: any, defaults: any) {
  * A composable for persisting any JSON serializable data in localStorage between sessions
  */
 export function usePersistedRef<T>(key: string, initialValue: T): Ref<UnwrapRef<T>>;
-export function usePersistedRef<T>(key: string, initialValue?: T): Ref<UnwrapRef<T> | null> {
+export function usePersistedRef<T extends Record<string, unknown>>(
+    key: string,
+    initialValue?: T,
+): Ref<UnwrapRef<T> | null> {
     const store = ref(initialValue ?? null) as Ref<UnwrapRef<T> | null>;
 
     watch(
@@ -172,5 +181,5 @@ export function asyncEvent(): { waiter: Promise<void>; set: () => void } {
 }
 
 export function randomRange(from: number, to: number) {
-    return Math.random() * (to - from) + from
+    return Math.random() * (to - from) + from;
 }

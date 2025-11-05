@@ -21,7 +21,7 @@
 
 <template>
     <PanelSection title="Debug">
-        <div class="flex flex-col space-y-4 bg-white bg-opacity-50">
+        <div class="flex flex-col space-y-4 bg-white/50">
             <p>{{ tacoAnimationState }}</p>
 
             <code class="whitespace-pre">

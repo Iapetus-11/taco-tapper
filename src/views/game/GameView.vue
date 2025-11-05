@@ -97,18 +97,17 @@
         const img = document.createElement('img');
 
         img.src = SKINS[state.value.selectedSkin].icon;
-        
-        img.style.left = `${x - (width / 2.0) + xDisplacement}px`;
+
+        img.style.left = `${x - width / 2.0 + xDisplacement}px`;
         img.style.top = `${y - 4 - yDisplacement}px`;
-        img.style.width = `${width}px`
+        img.style.width = `${width}px`;
 
         img.classList.add('taco-confetti');
 
-        const imgNode = document.body.insertAdjacentElement("beforeend", img)!;
+        document.body.insertAdjacentElement('beforeend', img)!;
 
         setTimeout(() => {
             img.remove();
-            document.body.removeChild(imgNode);
         }, 751);
     }
 
@@ -161,14 +160,15 @@
 </script>
 
 <style scoped>
+    @reference '@/main.css';
+
     .panel-section-group {
-        @apply w-full bg-gray-300 bg-opacity-40 lg:mt-1.5 lg:h-full lg:overflow-y-auto lg:pb-20;
-        @apply divide-gray-200 max-lg:divide-y;
+        @apply w-full divide-gray-200 bg-gray-300/40 max-lg:divide-y lg:mt-1.5 lg:h-full lg:overflow-y-auto lg:pb-20;
     }
 </style>
 
 <template>
-    <div class="flex h-full flex-col place-items-center max-lg:flex-grow lg:grid lg:grid-cols-4">
+    <div class="flex h-full flex-col place-items-center max-lg:grow lg:grid lg:grid-cols-4">
         <div
             class="panel-section-group border-gray-200 max-lg:order-last max-lg:border-t lg:rounded-r-md"
         >
@@ -184,9 +184,7 @@
         </div>
 
         <div class="mt-10 flex flex-col max-lg:my-auto max-lg:pt-[7.5vw] lg:col-span-2 lg:-mt-32">
-            <div
-                class="mx-auto mb-4 font-mono text-4xl font-semibold text-gray-900 text-opacity-50 lg:mb-10"
-            >
+            <div class="mx-auto mb-4 font-mono text-4xl font-semibold text-gray-900/50 lg:mb-10">
                 {{ Math.floor(state.tacos).toLocaleString() }}
             </div>
 
@@ -196,15 +194,13 @@
                 class="touch-manipulation rounded-full px-5 pb-7"
                 :class="tacoAnimationState ? 'scale-[97%]' : 'scale-100'"
             >
-                <span
-                    class="flex h-full max-h-[325px] w-full max-w-[448px] items-center justify-center"
-                >
+                <span class="flex h-full max-h-[325px] w-full max-w-md items-center justify-center">
                     <img
                         ref="tacoImageElement"
                         :src="SKINS[state.selectedSkin].icon"
                         :alt="`${state.selectedSkin} Taco`"
                         draggable="false"
-                        class="max-h-[325px] max-w-[70%] md:max-w-[448px]"
+                        class="max-h-[325px] max-w-[70%] md:max-w-md"
                     />
                 </span>
             </button>

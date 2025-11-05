@@ -17,23 +17,23 @@
         <div
             v-for="[achievementName, achievement] in Object.entries(ACHIEVEMENTS)"
             :key="achievementName"
-            class="flex items-center space-x-1.5 bg-white bg-opacity-60 p-1"
+            class="flex items-center space-x-1.5 bg-white/60 p-1"
         >
             <span
-                class="flex min-h-[56px] min-w-[56px] items-center justify-center"
+                class="flex min-h-14 min-w-14 items-center justify-center"
                 :class="{ 'opacity-50': !unlockedAchievements.has(achievementName) }"
             >
                 <img
                     :src="achievement.icon"
                     :alt="achievementName"
-                    class="h-full max-h-[56px] max-w-[56px] p-2"
+                    class="h-full max-h-14 max-w-14 p-2"
                 />
             </span>
 
             <span class="flex flex-col text-left">
                 <span
                     class="flex items-center text-sm font-semibold text-gray-600"
-                    :class="{ 'text-opacity-50': !unlockedAchievements.has(achievementName) }"
+                    :class="{ 'text-gray-600/50': !unlockedAchievements.has(achievementName) }"
                 >
                     <span>{{ achievementName }}</span>
                     <FontAwesomeIcon
@@ -45,7 +45,7 @@
                 </span>
                 <p
                     class="text-xs text-gray-500"
-                    :class="{ 'text-opacity-75': !unlockedAchievements.has(achievementName) }"
+                    :class="{ 'text-gray-500/75': !unlockedAchievements.has(achievementName) }"
                 >
                     {{ achievement.description }}
                 </p>

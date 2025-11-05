@@ -40,7 +40,7 @@
         title="Taco Skins"
         description="Select the perfect taco for the job (the job is being tapped)"
     >
-        <div class="flex flex-col divide-y-2 divide-purple-300 divide-opacity-75">
+        <div class="flex flex-col divide-y-2 divide-purple-300/75">
             <button
                 v-for="[tacoName, tacoProps] in Object.entries(SKINS) as [
                     keyof typeof SKINS,
@@ -49,17 +49,17 @@
                 :key="tacoName"
                 @click="() => selectSkin(tacoName)"
                 type="button"
-                class="flex w-full items-center space-x-1.5 bg-white bg-opacity-60 p-1 hover:bg-opacity-50"
+                class="flex w-full items-center space-x-1.5 bg-white/60 p-1 hover:bg-white/50"
             >
-                <span class="flex min-h-[80px] min-w-[96px] items-center justify-center">
+                <span class="flex min-h-20 min-w-24 items-center justify-center">
                     <img
                         :src="tacoProps.icon"
                         :alt="tacoName"
-                        class="h-full max-h-[80px] w-fit max-w-[96px] p-2"
+                        class="h-full max-h-20 w-fit max-w-24 p-2"
                     />
                 </span>
 
-                <span class="!mx-2 flex flex-col text-left">
+                <span class="mx-2! flex flex-col text-left">
                     <span class="text-gray-800">
                         {{ tacoName }}
 
@@ -77,8 +77,8 @@
                     v-if="state.ownedSkins.includes(tacoName)"
                     :icon="faCheck"
                     :size="state.selectedSkin === tacoName ? 'lg' : '1x'"
-                    class="!ml-auto !mr-4 text-gray-700 text-opacity-50"
-                    :class="{ '!text-opacity-70': state.selectedSkin === tacoName }"
+                    class="mr-4! ml-auto! text-gray-700/50"
+                    :class="{ 'text-gray-700/70!': state.selectedSkin === tacoName }"
                 />
             </button>
         </div>

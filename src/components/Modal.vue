@@ -1,11 +1,9 @@
-<script lang="ts">
-    export default {
-        inheritAttrs: false,
-    };
-</script>
-
 <script setup lang="ts">
     import { onBeforeUnmount, onMounted, ref } from 'vue';
+
+    defineOptions({
+        inheritAttrs: false,
+    });
 
     const emit = defineEmits<{
         close: [];
@@ -35,7 +33,7 @@
         }
     }
 
-    onMounted(async () => {
+    onMounted(() => {
         dialog.value!.showModal();
 
         window.addEventListener('click', onWindowClick);
@@ -51,7 +49,7 @@
 <template>
     <dialog
         ref="dialog"
-        class="frosted-glass rounded-lg bg-purple-400/60 shadow-xl max-lg:!border-t-0"
+        class="frosted-glass rounded-lg bg-purple-400/60 shadow-xl max-lg:border-t-0!"
     >
         <div ref="innerContainer" v-bind="$attrs">
             <slot />
@@ -83,6 +81,7 @@
     }
 
     dialog {
+        margin: auto;
         animation: dialog ease 300ms;
     }
 

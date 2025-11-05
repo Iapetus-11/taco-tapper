@@ -27,7 +27,7 @@
         title="Automation"
         description="The path to infinite tacos and taking over the cosmos..."
     >
-        <div class="flex flex-col divide-y-2 divide-purple-300 divide-opacity-75">
+        <div class="flex flex-col divide-y-2 divide-purple-300/75">
             <button
                 v-for="[autoClickerName, autoClickerProps] in Object.entries(AUTO_CLICKERS) as [
                     keyof typeof AUTO_CLICKERS,
@@ -36,7 +36,7 @@
                 :key="autoClickerName"
                 @click="buyAutoClicker(autoClickerName)"
                 type="button"
-                class="flex items-center space-x-1.5 bg-white bg-opacity-60 p-1 hover:bg-opacity-50"
+                class="flex items-center space-x-1.5 bg-white/60 p-1 hover:bg-white/50"
             >
                 <span class="flex min-h-[76px] min-w-[76px] items-center justify-center">
                     <img

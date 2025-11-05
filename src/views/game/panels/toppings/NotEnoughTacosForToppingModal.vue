@@ -14,7 +14,7 @@
 <template>
     <Modal @close="$emit('close')" class="flex w-72 flex-col items-center p-4">
         <h1 class="mb-2 flex items-center text-xl text-gray-100">
-            <img src="/art/tacos/pixel.png" alt="Pixel Taco" class="-ml-2 mr-2 w-10" />
+            <img src="/art/tacos/pixel.png" alt="Pixel Taco" class="mr-2 -ml-2 w-10" />
             Not Enough Tacos!
         </h1>
 

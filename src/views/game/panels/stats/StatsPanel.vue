@@ -75,13 +75,13 @@
 
 <template>
     <PanelSection title="Statistics">
-        <div class="flex flex-col divide-y-2 divide-purple-300 divide-opacity-75">
+        <div class="flex flex-col divide-y-2 divide-purple-300/75">
             <div
                 v-for="{ name, value, description } in statistics"
                 :key="name"
                 @click="openStatForDetail(name)"
                 :role="mobileView ? 'none' : 'button'"
-                class="flex flex-col justify-center bg-white bg-opacity-60 px-2.5 py-1.5 lg:hover:bg-opacity-50"
+                class="flex flex-col justify-center bg-white/60 px-2.5 py-1.5 lg:hover:bg-white/50"
             >
                 <span class="flex w-full justify-between text-sm">
                     <span class="text-gray-700">{{ name }}</span>
