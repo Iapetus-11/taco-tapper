@@ -34,8 +34,7 @@
 }
 
 @utility frosted-glass {
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    @apply backdrop-blur-[10px];
 
     box-shadow:
         inset -0.75px -0.5px rgba(255, 255, 255, 0.1),
