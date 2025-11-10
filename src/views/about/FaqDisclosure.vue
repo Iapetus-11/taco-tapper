@@ -1,7 +1,5 @@
 <script setup lang="ts">
     import { computed, useId } from 'vue';
-    import { faChevronDown } from '@fortawesome/pro-solid-svg-icons';
-    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
     const props = defineProps<{ title: string; openId: string | undefined }>();
     const emit = defineEmits<{ (evt: 'update:openId', openId: string | undefined): void }>();
@@ -21,14 +19,14 @@
             type="button"
             class="flex w-full items-center justify-between bg-violet-700/90 p-5 text-left text-lg text-gray-100 shadow-md transition hover:bg-violet-700/80 md:text-xl"
         >
-            {{ title }}
+            <span class="mr-4">
+                {{ title }}
+            </span>
 
             <span
-                class="mr-0.5 ml-4 transition-all duration-500"
+                class="icon-[tabler--chevron-down] ml-4 origin-center text-2xl transition-all duration-500"
                 :class="open ? 'rotate-0' : '-rotate-450'"
-            >
-                <FontAwesomeIcon :icon="faChevronDown" class="scale-[80%]" />
-            </span>
+            ></span>
         </button>
 
         <div

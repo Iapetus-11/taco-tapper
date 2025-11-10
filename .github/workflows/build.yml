@@ -7,9 +7,6 @@ on:
         outputs:
             artifact-name:
                 value: ${{ jobs.build.outputs.artifact-name }}
-        secrets:
-            NPM_FONTAWESOME_TOKEN:
-                required: true
 
 jobs:
     build:
@@ -31,16 +28,7 @@ jobs:
                   cache: npm
 
             - name: Install NPM dependencies
-              # Skip post-install scripts for now to prevent token theft
-              run: |
-                  npm config set '//npm.fontawesome.com/:_authToken' '${NPM_FONTAWESOME_TOKEN}'
-                  npm ci --ignore-scripts
-                  npm config delete '//npm.fontawesome.com/:_authToken'
-              env:
-                  NPM_FONTAWESOME_TOKEN: ${{ secrets.NPM_FONTAWESOME_TOKEN }}
-
-            - name: Run post-install scripts
-              run: npm rebuild
+              run: npm ci
 
             - name: Build project
               run: npm run build

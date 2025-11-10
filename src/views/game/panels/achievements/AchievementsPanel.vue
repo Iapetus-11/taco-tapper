@@ -1,8 +1,6 @@
 <script setup lang="ts">
     import { ACHIEVEMENTS, type GameState } from '@/game';
     import { computed } from 'vue';
-    import { faCheck } from '@fortawesome/pro-solid-svg-icons';
-    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
     import PanelSection from '../PanelSection.vue';
 
     const props = defineProps<{ state: GameState }>();
@@ -36,12 +34,10 @@
                     :class="{ 'text-gray-600/50': !unlockedAchievements.has(achievementName) }"
                 >
                     <span>{{ achievementName }}</span>
-                    <FontAwesomeIcon
+                    <span
                         v-if="unlockedAchievements.has(achievementName)"
-                        :icon="faCheck"
-                        size="lg"
-                        class="-mt-0.5 ml-1.5 text-purple-600"
-                    />
+                        class="icon-[tabler--check] -mt-0.5 ml-1 text-xl text-purple-600"
+                    ></span>
                 </span>
                 <p
                     class="text-xs text-gray-500"

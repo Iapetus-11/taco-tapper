@@ -1,7 +1,5 @@
 <script setup lang="ts">
     import { onBeforeMount, onUnmounted, ref, watch } from 'vue';
-    import { faChevronRight } from '@fortawesome/pro-solid-svg-icons';
-    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
     import { useTailwindBreakpoint } from '@/utils';
 
     defineProps<{
@@ -56,9 +54,7 @@
                 <p v-if="description" class="text-xs text-gray-50">{{ description }}</p>
             </div>
 
-            <button type="button" class="p-1 lg:hidden">
-                <FontAwesomeIcon :icon="faChevronRight" class="text-gray-200" />
-            </button>
+            <span class="icon-[tabler--chevron-right] ml-2 text-3xl text-gray-200 lg:hidden"></span>
         </div>
 
         <!-- Desktop view content -->
@@ -100,9 +96,11 @@
                 <button
                     @click="mobileTrayOpen = false"
                     type="button"
-                    class="absolute top-1/2 left-0 -translate-y-1/2 rounded-r-full bg-gray-300 py-2 pr-2 pl-1 opacity-75 shadow-sm"
+                    class="absolute top-1/2 left-0 flex -translate-y-1/2 rounded-r-full bg-gray-300 py-2 pr-1.5 pl-0.5 opacity-75 shadow-sm"
                 >
-                    <FontAwesomeIcon :icon="faChevronRight" size="lg" class="text-gray-500" />
+                    <span
+                        class="icon-[tabler--chevron-right] -mr-1.5 -ml-1 text-3xl text-gray-500 lg:hidden"
+                    ></span>
                 </button>
 
                 <div class="h-full w-full min-w-[85vw] overflow-y-auto pb-24">

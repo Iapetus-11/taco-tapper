@@ -1,7 +1,5 @@
 <script setup lang="ts">
     import { type GameState, type SkinDefinition, SKINS } from '@/game';
-    import { faCheck } from '@fortawesome/pro-solid-svg-icons';
-    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
     import NotEnoughTacosForSkinModal from '@/views/game/panels/skins/NotEnoughTacosForSkinModal.vue';
     import PanelSection from '@/views/game/panels/PanelSection.vue';
     import { ref } from 'vue';
@@ -73,13 +71,11 @@
                     <span class="text-xs text-gray-600">{{ tacoProps.description }}</span>
                 </span>
 
-                <FontAwesomeIcon
+                <span
                     v-if="state.ownedSkins.includes(tacoName)"
-                    :icon="faCheck"
-                    :size="state.selectedSkin === tacoName ? 'lg' : '1x'"
-                    class="mr-4! ml-auto! text-gray-700/50"
-                    :class="{ 'text-gray-700/70!': state.selectedSkin === tacoName }"
-                />
+                    class="icon-[tabler--check] mr-4! ml-auto! text-2xl text-gray-700/50 transition-all"
+                    :class="{ 'scale-105 text-purple-600!': state.selectedSkin === tacoName }"
+                ></span>
             </button>
         </div>
     </PanelSection>
